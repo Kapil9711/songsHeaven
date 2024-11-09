@@ -26,6 +26,9 @@ const callBackFn = async (accessToken, refreshToken, profile, done) => {
       });
     } else {
       user.profilePic = profile.photos ? profile.photos[0].value : null;
+      user.isVerified = true;
+      user.googleId = profile.id;
+      user.authMethod = "google";
       await user.save();
     }
 

@@ -75,6 +75,16 @@ export const login = catchAsyncError(async (req, res, next) => {
   });
 });
 
+// logout user => /api/v1/auth/logout (get);
+export const logout = catchAsyncError(async (req, res, next) => {
+  if (req.logout) {
+    req.logout((err) => {
+      if (err) return next(new CustomError("Error logging out", 500));
+    });
+  }
+  res.status(200).json({ message: "Logout Successfull", success: true });
+});
+
 // google user login => /api/v1/auth/google/callback (get)
 export const googleLogin = catchAsyncError(async (req, res, next) => {
   const token = jwt.sign({ userId: req.user._id }, config.JWT_SECRET, {
