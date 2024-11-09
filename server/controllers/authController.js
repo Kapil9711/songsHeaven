@@ -50,21 +50,27 @@ export const verify = catchAsyncError(async (req, res, next) => {
   res.status(200).send("Email Verified Successfully");
 });
 
-// register user => /api/v1/auth/register (post)
-// export const register = catchAsyncError(async (req, res, next) => {
-//   const { authMethod } = req.body;
-//   if (!authMethod || authMethod !== "local") {
-//     return next(new CustomError("authMethod is Empty or Invalid;", 400));
-//   }
-//   const userDoc = getUserDoc(req.body);
-//   const user = await User.create(userDoc);
-//   if (!user) return next(new CustomError("Internal Server Error", 500));
-//   const token = user.getJwtToken();
-//   const subject = "Verify User Email";
-//   const options = createMailOption(token, user.email, subject);
-//   await sendEmail(options);
-//   res.status(200).json({
-//     success: true,
-//     message: "User Registered Successfully, Verify the email",
-//   });
-// });
+// login user => /api/v1/auth/login (post)
+export const login = catchAsyncError(async (req, res, next) => {
+  const { email, password } = req.body;
+  const user = await User.findOne({ email });
+  if (!user) return next(new CustomError("User not Found", 404));
+  if (!user.isVerified)
+    return next(new CustomError("Email is not Verified", 400));
+  // match the enered user password
+  const isPassMatch = await user.checkPassword(password);
+  if (!isPassMatch)
+    return next(new CustomError("Incorrect Username or Password", 404));
+  const token = await user.getJwtToken();
+  res.status(200).json({
+    success: true,
+    message: "Login Successfull",
+    user: {
+      id: user._id,
+      name: user.name,
+      email: user.email,
+      profilePic: user.profilePic,
+    },
+    token,
+  });
+});
