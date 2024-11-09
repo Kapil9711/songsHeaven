@@ -34,6 +34,10 @@ const userSchema = new mongoose.Schema({
     },
     required: [true, "authMethod is required"],
   },
+  isVerified: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 // hash password

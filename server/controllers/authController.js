@@ -6,6 +6,7 @@ import createMailOption from "../utils/createMailOptions.js";
 import sendEmail from "../utils/sendEmail.js";
 import jwt from "jsonwebtoken";
 import config from "../config/envConfig.js";
+import mongoose from "mongoose";
 
 // register user => /api/v1/auth/register (post)
 export const register = catchAsyncError(async (req, res, next) => {
@@ -34,8 +35,17 @@ export const verify = catchAsyncError(async (req, res, next) => {
   if (!token) return next(new CustomError("Token is Required", 400));
   const decode = jwt.verify(token, config.JWT_SECRET);
   if (!decode) return next(new CustomError("Token is Invalid or Expired", 400));
-  const user = await User.findById(decode.userId);
-  console.log(user);
+  // check if the id is a validObject id
+  if (!mongoose.Types.ObjectId.isValid(decode.userId)) {
+    return next(new CustomError("Invalid UserId", 400));
+  }
+  const user = await User.findByIdAndUpdate(
+    decode.userId,
+    {
+      $set: { isVerified: true },
+    },
+    { new: true }
+  );
   if (!user) return next(new CustomError("User not Found", 404));
   res.status(200).send("Email Verified Successfully");
 });
