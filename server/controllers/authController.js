@@ -74,3 +74,13 @@ export const login = catchAsyncError(async (req, res, next) => {
     token,
   });
 });
+
+// google user login => /api/v1/auth/google/callback (get)
+export const googleLogin = catchAsyncError(async (req, res, next) => {
+  const token = jwt.sign({ userId: req.user._id }, config.JWT_SECRET, {
+    expiresIn: config.JWT_EXPIRES_TIME,
+  });
+  res.redirect(
+    `${config.CALL_BACK_URL}?token=${token}&&user=${JSON.stringify(req.user)}`
+  );
+});

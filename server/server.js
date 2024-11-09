@@ -5,8 +5,9 @@ import config from "./config/envConfig.js";
 import colors from "colors/safe.js";
 import authRouter from "./router/authRouter.js";
 import globalErrorHandler from "./middlewares/globalErrorHandler.js";
-import cookieSession from "cookie-session";
+import session from "express-session";
 import passport from "passport";
+import "./config/passport.js";
 
 // express setup
 const app = express();
@@ -14,10 +15,11 @@ const server = http.createServer(app);
 
 //session setup for google auth
 app.use(
-  cookieSession({
-    name: "session",
-    keys: ["key1", "key2"],
-    maxAge: 24 * 60 * 60 * 1000,
+  session({
+    secret: config.SESSION_KEY,
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: false },
   })
 );
 
