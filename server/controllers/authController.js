@@ -4,6 +4,8 @@ import getUserDoc from "../utils/getUserDoc.js";
 import User from "../models/user.js";
 import createMailOption from "../utils/createMailOptions.js";
 import sendEmail from "../utils/sendEmail.js";
+import jwt from "jsonwebtoken";
+import config from "../config/envConfig.js";
 
 // register user => /api/v1/auth/register (post)
 export const register = catchAsyncError(async (req, res, next) => {
@@ -14,7 +16,9 @@ export const register = catchAsyncError(async (req, res, next) => {
   const userDoc = getUserDoc(req.body);
   const user = await User.create(userDoc);
   if (!user) return next(new CustomError("Internal Server Error", 500));
-  const token = "fsdfdfdfsafdsfdsfdsfdsfs";
+  const token = jwt.sign({ userId: user._id }, config.JWT_SECRET, {
+    expiresIn: "1d",
+  });
   const subject = "Verify User Email";
   const options = createMailOption(token, user.email, subject);
   await sendEmail(options);
@@ -24,9 +28,8 @@ export const register = catchAsyncError(async (req, res, next) => {
   });
 });
 
-// register user => /api/v1/auth/register (post)
-// export const register = catchAsyncError(async (req, res, next) => {
-//   const { authMethod } = req.body;
+// verify user => /api/v1/auth/verify (get)
+// export const verify = catchAsyncError(async (req, res, next) => {
 //   if (!authMethod || authMethod !== "local") {
 //     return next(new CustomError("authMethod is Empty or Invalid;", 400));
 //   }

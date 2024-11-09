@@ -1,8 +1,7 @@
 import nodemailer from "nodemailer";
 import config from "../config/envConfig.js";
-import catchAsyncError from "../middlewares/catchAsyncError.js";
 
-export default catchAsyncError(async function sendEmail(options) {
+export default async function sendEmail(options) {
   const transport = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 465,
@@ -13,4 +12,4 @@ export default catchAsyncError(async function sendEmail(options) {
     },
   });
   await transport.sendMail(options);
-});
+}
