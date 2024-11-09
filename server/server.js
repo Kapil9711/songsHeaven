@@ -10,6 +10,10 @@ import globalErrorHandler from "./middlewares/globalErrorHandler.js";
 const app = express();
 const server = http.createServer(app);
 
+// body parsers
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 // home route
 app.get("/", (req, res) => {
   res.send("server is running");
