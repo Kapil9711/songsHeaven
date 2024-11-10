@@ -31,7 +31,11 @@ export const getPlaylistById = catchAsyncError(async (req, res, next) => {
   const { id } = req.params;
   const playlist = await Playlist.findById(id);
   if (!playlist) return next(new CustomError("Playlist not Found", 404));
-  if (playlist.userId !== req.user.id && playlist.playListType !== "public") {
+
+  if (
+    playlist.userId.toString() !== req.user.id &&
+    playlist.playListType !== "public"
+  ) {
     return next(new CustomError("Not allowed to get this playlist", 401));
   }
   res.status(200).json({
@@ -109,6 +113,7 @@ export const addSong = catchAsyncError(async (req, res, next) => {
     },
     { new: true }
   );
+  if (!playlist) return next(new CustomError("Playlist not Found", 404));
   res.status(200).json({
     message: `Song add to  ${playlist.playListName} Successfully`,
     success: true,
