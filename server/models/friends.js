@@ -4,10 +4,12 @@ const friendSchema = new mongoose.Schema({
   followerId: {
     type: mongoose.Types.ObjectId,
     required: [true, "Follower id is required"],
+    ref: "User",
   },
   followingId: {
     type: mongoose.Types.ObjectId,
     required: [true, "Following id is required"],
+    ref: "User",
   },
 });
 

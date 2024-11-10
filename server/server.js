@@ -10,6 +10,7 @@ import "./config/passport.js";
 import authRouter from "./router/authRouter.js";
 import playlistRouter from "./router/playlistRouter.js";
 import favoriteRouter from "./router/favoriteRouter.js";
+import friendRouter from "./router/friendRouter.js";
 
 // express setup
 const app = express();
@@ -41,6 +42,7 @@ app.get("/", (req, res) => {
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/playlists", playlistRouter);
 app.use("/api/v1/favorites", favoriteRouter);
+app.use("/api/v1/friends", friendRouter);
 
 // handles global error
 app.use(globalErrorHandler);
