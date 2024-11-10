@@ -58,10 +58,12 @@ export const getFavoritesByUserid = catchAsyncError(async (req, res, next) => {
 export const deleteFavortieBySongId = catchAsyncError(
   async (req, res, next) => {
     const { songId } = req.params;
-    await Favorite.findOneAndDelete({
+    const isDeleted = await Favorite.findOneAndDelete({
       userId: req.user._id,
       id: songId,
     });
+    if (!isDeleted)
+      return next(new CustomError("No song Found to delete", 404));
     res.status(200).json({
       message: "Song removed from Favorites Successfully",
       success: true,

@@ -129,6 +129,8 @@ export const deleteSong = catchAsyncError(async (req, res, next) => {
     { _id: id, userId },
     { $pull: { playlistSongs: { id: songId } } }
   );
+
+  if (!playlist) return next(new CustomError("Song not found to delete", 404));
   res.status(200).json({
     message: `Song deleted Successfully`,
     success: true,
