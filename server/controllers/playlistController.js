@@ -31,6 +31,9 @@ export const getPlaylistById = catchAsyncError(async (req, res, next) => {
   const { id } = req.params;
   const playlist = await Playlist.findById(id);
   if (!playlist) return next(new CustomError("Playlist not Found", 404));
+  if (playlist.userId !== req.user.id && playlist.playListType !== "public") {
+    return next(new CustomError("Not allowed to get this playlist", 401));
+  }
   res.status(200).json({
     message: "Playlist fetched Successfully",
     success: true,
@@ -41,7 +44,8 @@ export const getPlaylistById = catchAsyncError(async (req, res, next) => {
 // delete playlist by id => /api/v1/playlists/:id (delete)
 export const deletePlaylistById = catchAsyncError(async (req, res, next) => {
   const { id } = req.params;
-  const playlist = await Playlist.findByIdAndDelete(id);
+  const userId = req.user._id;
+  const playlist = await Playlist.findOneAndDelete({ userId, _id: id });
   res.status(200).json({
     message: "Playlist deleted Successfully",
     success: true,
@@ -51,6 +55,7 @@ export const deletePlaylistById = catchAsyncError(async (req, res, next) => {
 // update playlist by id => /api/v1/playlists/:id (patch)
 export const updatePlaylistById = catchAsyncError(async (req, res, next) => {
   const { id } = req.params;
+  const userId = req.user._id;
   const { playListName, playListType } = req.body;
 
   if (!playListName && !playListType) {
@@ -58,24 +63,24 @@ export const updatePlaylistById = catchAsyncError(async (req, res, next) => {
   }
   let playlist;
   if (playListName && playListType) {
-    playlist = await Playlist.findByIdAndUpdate(
-      id,
+    playlist = await Playlist.findOneAndUpdate(
+      { _id: id, userId },
       {
         $set: { playListName, playListType },
       },
       { new: true }
     );
   } else if (playListName) {
-    playlist = await Playlist.findByIdAndUpdate(
-      id,
+    playlist = await Playlist.findOneAndUpdate(
+      { _id: id, userId },
       {
         $set: { playListName },
       },
       { new: true }
     );
   } else {
-    playlist = await Playlist.findByIdAndUpdate(
-      id,
+    playlist = await Playlist.findOneAndUpdate(
+      { _id: id, userId },
       {
         $set: { playListType },
       },
@@ -96,8 +101,9 @@ export const updatePlaylistById = catchAsyncError(async (req, res, next) => {
 export const addSong = catchAsyncError(async (req, res, next) => {
   const { id } = req.params;
   const { songInfo } = req.body;
-  const playlist = await Playlist.findByIdAndUpdate(
-    id,
+  const userId = req.user._id;
+  const playlist = await Playlist.findOneAndUpdate(
+    { _id: id, userId },
     {
       $push: { playlistSongs: songInfo },
     },
@@ -113,8 +119,9 @@ export const addSong = catchAsyncError(async (req, res, next) => {
 // delete song from playlist => /api/v1/playlists/:id/songs/:songId (delete)
 export const deleteSong = catchAsyncError(async (req, res, next) => {
   const { id, songId } = req.params;
-  const playlist = await Playlist.updateOne(
-    { _id: id },
+  const userId = req.user._id;
+  const playlist = await Playlist.findOneAndUpdate(
+    { _id: id, userId },
     { $pull: { playlistSongs: { id: songId } } }
   );
   res.status(200).json({
