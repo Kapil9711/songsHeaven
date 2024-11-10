@@ -4,7 +4,6 @@ const favoritesSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Types.ObjectId,
     required: [true, "UserId is required"], // User ID is mandatory
-    unique: true, // User ID should be unique across playlists
   },
 
   // Song ID (e.g., unique identifier for the song)
@@ -42,7 +41,7 @@ const favoritesSchema = new mongoose.Schema({
   ],
 });
 
-favoritesSchema.index({ userId: 1 });
+favoritesSchema.clearIndexes({ userId: 1 });
 
 const Favorite = mongoose.model("Favorite", favoritesSchema);
 
