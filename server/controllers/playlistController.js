@@ -90,6 +90,8 @@ export const updatePlaylistById = catchAsyncError(async (req, res, next) => {
   });
 });
 
+// **************Songs controllers******************
+
 // add song to playlist => /api/v1/playlists/:id/songs (post)
 export const addSong = catchAsyncError(async (req, res, next) => {
   const { id } = req.params;
