@@ -6,7 +6,7 @@ const playlistSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Types.ObjectId,
     required: [true, "UserId is required"], // User ID is mandatory
-    unique: true, // User ID should be unique across playlists
+    ref: "User",
   },
 
   // Name of the playlist
@@ -70,3 +70,5 @@ playlistSchema.index({ userId: 1 });
 
 // Export the Playlist model
 const Playlist = mongoose.model("Playlist", playlistSchema);
+
+export default Playlist;

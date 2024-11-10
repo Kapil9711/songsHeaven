@@ -5,17 +5,22 @@ import jwt from "jsonwebtoken";
 
 export const Authenticate = catchAsyncError(async (req, res, next) => {
   let token;
-  token = req.headers.authorization?.split(" ")[1];
+  if (
+    req.headers["authorization"] &&
+    req.headers["authorization"].includes("Bearer")
+  ) {
+    token = req.headers.authorization?.split(" ")[1];
+  }
   if (!token) {
     return next(
       new CustomError("Authentication failed, Token is required", 401)
     );
   }
-  try {
-    const decode = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = await User.findById(decode.id);
-    next();
-  } catch (error) {
-    return next(new CustomError("Authentication failed token failed", 401));
-  }
+  const decode = jwt.verify(token, process.env.JWT_SECRET);
+  if (!decode)
+    return next(
+      new CustomError("Authentication failed invalid or expired Token")
+    );
+  req.user = await User.findById(decode.userId);
+  next();
 });
