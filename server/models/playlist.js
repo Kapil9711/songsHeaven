@@ -29,6 +29,7 @@ const playlistSchema = new mongoose.Schema({
   // Array of songs in the playlist
   playlistSongs: [
     {
+      _id: { type: Boolean, default: false },
       // Song ID (e.g., unique identifier for the song)
       id: {
         type: String,
@@ -50,6 +51,7 @@ const playlistSchema = new mongoose.Schema({
       // Array of images for the song (e.g., album art)
       image: [
         {
+          _id: { type: Boolean, default: false },
           quality: String, // Quality of the image (e.g., low, high)
           url: String, // URL of the image
         },
@@ -58,6 +60,7 @@ const playlistSchema = new mongoose.Schema({
       // Array of download URLs for the song (if available)
       downloadUrl: [
         {
+          _id: { type: Boolean, default: false },
           quality: String, // Quality of the download (e.g., high, medium)
           url: String, // URL to download the song
         },

@@ -25,3 +25,35 @@ export const getAllPlaylist = catchAsyncError(async (req, res, next) => {
     playlist,
   });
 });
+
+// add song to playlist => /api/v1/playlists/:id/songs (post)
+export const addSong = catchAsyncError(async (req, res, next) => {
+  const { id } = req.params;
+  const { songInfo } = req.body;
+  const playlist = await Playlist.findByIdAndUpdate(
+    id,
+    {
+      $push: { playlistSongs: songInfo },
+    },
+    { new: true }
+  );
+  res.status(200).json({
+    message: `Song add to  ${playlist.playListName} Successfully`,
+    success: true,
+    playlist,
+  });
+});
+
+// delete song from playlist => /api/v1/playlists/:id/songs/:songId (delete)
+export const deleteSong = catchAsyncError(async (req, res, next) => {
+  const { id, songId } = req.params;
+  const playlist = await Playlist.updateOne(
+    { _id: id },
+    { $pull: { playlistSongs: { id: songId } } }
+  );
+  res.status(200).json({
+    message: `Song deleted Successfully`,
+    success: true,
+    playlist,
+  });
+});
