@@ -8,7 +8,6 @@ const apiMiddleware = (store) => (next) => async (action) => {
   if (data) httpConfig.data = data;
   if (params) httpConfig.params = params;
   const res = await request(httpConfig);
-  console.log(res);
   if (res.success) {
     if (res.data.token) Cookies.set("token", res.data.token);
     if (onSuccess) store.dispatch({ type: onSuccess, payload: res.data });

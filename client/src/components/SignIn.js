@@ -75,7 +75,7 @@ const SignIn = ({ setActive }) => {
           </svg>
         </div>
         <span className="w-5/6 px-4 py-3 font-bold text-center">
-          Sign in with Google
+          Continue With Google
         </span>
       </div>
       <div className="flex items-center justify-between mt-4">

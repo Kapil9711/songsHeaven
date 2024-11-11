@@ -32,7 +32,7 @@ const SignUp = ({ setActive }) => {
         />
       </div>
       <p className="mt-3 text-xl text-center text-gray-600 dark:text-gray-200">
-        Welcome
+        Sign-Up
       </p>
       <div
         onClick={() => {
@@ -65,7 +65,7 @@ const SignUp = ({ setActive }) => {
           </svg>
         </div>
         <span className="w-5/6 px-4 py-3 font-bold text-center">
-          Sign up with Google
+          Continue With Google
         </span>
       </div>
       <div className="flex items-center justify-between mt-4">
