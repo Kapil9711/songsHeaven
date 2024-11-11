@@ -4,6 +4,7 @@ import connectDB from "./config/db.js";
 import config from "./config/envConfig.js";
 import colors from "colors/safe.js";
 import globalErrorHandler from "./middlewares/globalErrorHandler.js";
+import cors from "cors";
 import session from "express-session";
 import passport from "passport";
 import "./config/passport.js";
@@ -15,6 +16,9 @@ import friendRouter from "./router/friendRouter.js";
 // express setup
 const app = express();
 const server = http.createServer(app);
+
+// cors
+app.use(cors());
 
 //session setup for google auth
 app.use(
