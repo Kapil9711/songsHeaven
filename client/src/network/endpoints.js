@@ -2,8 +2,8 @@ export const baseUrl = "https://songsheaven.onrender.com/api/v1";
 
 const ENDPOINTS = {
   GOOGLESINGIN: `${baseUrl}/auth/google`,
-  SIGNIN: `${baseUrl}/auth/register`,
-  SIGNUP: `${baseUrl}/auth/login`,
+  SIGNIN: `${baseUrl}/auth/login`,
+  SIGNUP: `${baseUrl}/auth/register`,
   LOGOUT: `${baseUrl}/auth/logout`,
   VERIFY: `${baseUrl}/auth/verify`,
 };

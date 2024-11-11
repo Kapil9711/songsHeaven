@@ -7,7 +7,7 @@ const apiMiddleware = (store) => (next) => async (action) => {
   const httpConfig = { method, url };
   if (data) httpConfig.data = data;
   if (params) httpConfig.params = params;
-
+  console.log(httpConfig);
   const res = await request(httpConfig);
   console.log(res);
 };

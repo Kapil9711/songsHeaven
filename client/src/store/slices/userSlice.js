@@ -21,12 +21,25 @@ export default userSlice.reducer;
 
 // create actions
 
-export const googleSignUpAction = ({ data }) => {
-  const action = actionFactory;
+export const SignUpAction = (data, params) => {
+  const action = actionFactory();
   action.payload = {
-    method: "GET",
-    url: ENDPOINTS.GOOGLESINGIN,
+    method: "POST",
+    url: ENDPOINTS.SIGNUP,
     data,
+    params,
   };
+  return action;
+};
+export const SignInAction = (data, params) => {
+  console.log(data);
+  const action = actionFactory();
+  action.payload = {
+    method: "POST",
+    url: ENDPOINTS.SIGNIN,
+    data,
+    params,
+  };
+  console.log(action);
   return action;
 };

@@ -16,7 +16,6 @@ const AuthComponent = () => {
       SIGNIN: <SignIn setActive={setActive} />,
     };
   }, [active]);
-  console.log(active);
   return (
     <div className="md:container pt-5 md:mx-auto">
       <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 lg:max-w-4xl">
@@ -28,8 +27,6 @@ const AuthComponent = () => {
           }}
         />
         {ComponentObj[active]}
-        {/* {active === actives.SIGNIN && <SignIn setActive={setActive} />}
-        {active === actives.SIGNUP && <SignUp setActive={setActive} />} */}
       </div>
     </div>
   );

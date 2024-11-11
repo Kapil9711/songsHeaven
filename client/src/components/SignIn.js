@@ -1,9 +1,24 @@
 "use client";
-import React from "react";
+import { useRef } from "react";
 import { actives } from "./Auth";
 import ENDPOINTS from "@/network/endpoints";
+import { useDispatch } from "react-redux";
+import { SignInAction } from "@/store/slices/userSlice";
 
 const SignIn = ({ setActive }) => {
+  const emailRef = useRef(null);
+  const passRef = useRef(null);
+  const dispatch = useDispatch();
+
+  // handleSignIn
+  const handleSignIn = () => {
+    console.log("clicked");
+    const email = emailRef.current.value;
+    const password = passRef.current.value;
+    if (!email) return window.alert("Please Enter Email To SignIn");
+    else if (!password) return window.alert("Please Enter Password To SignIn");
+    dispatch(SignInAction({ email, password }));
+  };
   return (
     <div className="w-full px-6 py-8 md:px-8 lg:w-1/2">
       <div className="flex justify-center mx-auto">
@@ -14,7 +29,7 @@ const SignIn = ({ setActive }) => {
         />
       </div>
       <p className="mt-3 text-xl text-center text-gray-600 dark:text-gray-200">
-        Welcome
+        SIGN_IN
       </p>
       <div
         onClick={() => (window.location.href = ENDPOINTS.GOOGLESINGIN)}
@@ -57,12 +72,12 @@ const SignIn = ({ setActive }) => {
       <div className="mt-4">
         <label
           className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200"
-          htmlFor="LoggingEmailAddress"
+          htmlFor="email"
         >
           Email Address
         </label>
         <input
-          id="LoggingEmailAddress"
+          ref={emailRef}
           className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300"
           type="email"
         />
@@ -71,7 +86,7 @@ const SignIn = ({ setActive }) => {
         <div className="flex justify-between">
           <label
             className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200"
-            htmlFor="loggingPassword"
+            htmlFor="password"
           >
             Password
           </label>
@@ -83,13 +98,17 @@ const SignIn = ({ setActive }) => {
           </a>
         </div>
         <input
-          id="loggingPassword"
+          ref={passRef}
+          id="password"
           className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300"
           type="password"
         />
       </div>
       <div className="mt-6">
-        <button className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gray-800 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50">
+        <button
+          onClick={handleSignIn}
+          className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gray-800 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50"
+        >
           Sign In
         </button>
       </div>
