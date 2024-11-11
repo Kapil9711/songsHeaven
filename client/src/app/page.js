@@ -1,14 +1,21 @@
 "use client";
 import AuthComponent from "@/components/Auth";
 import SimpleNavbar from "@/components/SimpleNavbar";
+import { setUser } from "@/store/slices/userSlice";
 import Cookies from "js-cookie";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 const Home = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const dispatch = useDispatch();
   useEffect(() => {
+    // if (Cookies.get("token") && Cookies.get("user")) {
+    //   dispatch(setUser({ user: JSON.parse(Cookies.get("user")) }));
+    //   router.push("/dashboard/songs");
+    // }
     const user = searchParams.get("user");
     const token = searchParams.get("token");
     if (token && user) {
@@ -18,7 +25,7 @@ const Home = () => {
     }
   }, []);
   return (
-    <div>
+    <div className="h-[100vh] bg-base-300">
       <SimpleNavbar />
       <AuthComponent />
     </div>

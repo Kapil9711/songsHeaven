@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUser, SignInAction } from "@/store/slices/userSlice";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 const SignIn = ({ setActive }) => {
   const user = useSelector((state) => state.user.value);
@@ -21,6 +22,7 @@ const SignIn = ({ setActive }) => {
   // handleSignIn
   const handleSignIn = () => {
     if (Cookies.get("token") && Cookies.get("user")) {
+      toast.success("Login successfull");
       dispatch(setUser({ user: JSON.parse(Cookies.get("user")) }));
       return router.push("/dashboard");
     } else {
