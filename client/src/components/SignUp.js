@@ -28,7 +28,7 @@ const SignUp = ({ setActive }) => {
         <img
           className="w-auto h-7 sm:h-8"
           src="https://merakiui.com/images/logo.svg"
-          alt
+          alt="logo"
         />
       </div>
       <p className="mt-3 text-xl text-center text-gray-600 dark:text-gray-200">
