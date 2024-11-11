@@ -11,7 +11,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html data-theme="business" lang="en">
+    <html data-theme="light" lang="en">
       <body className={`${poppins.className}antialiased`}>
         <ReduxProvider>{children}</ReduxProvider>
       </body>

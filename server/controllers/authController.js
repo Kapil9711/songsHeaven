@@ -91,6 +91,8 @@ export const googleLogin = catchAsyncError(async (req, res, next) => {
     expiresIn: config.JWT_EXPIRES_TIME,
   });
   res.redirect(
-    `${config.CALL_BACK_URL}?token=${token}&&user=${JSON.stringify(req.user)}`
+    `${config.CLIENT_CALL_BACK_URL}?token=${token}&&user=${JSON.stringify(
+      req.user
+    )}`
   );
 });

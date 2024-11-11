@@ -1,4 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
+import actionFactory from "@/utils/actionFactory.js";
+import ENDPOINTS from "@/network/endpoints";
 
 const initialState = {
   value: {},
@@ -16,3 +18,15 @@ const userSlice = createSlice({
 
 export const { setUser } = userSlice.actions;
 export default userSlice.reducer;
+
+// create actions
+
+export const googleSignUpAction = ({ data }) => {
+  const action = actionFactory;
+  action.payload = {
+    method: "GET",
+    url: ENDPOINTS.GOOGLESINGIN,
+    data,
+  };
+  return action;
+};

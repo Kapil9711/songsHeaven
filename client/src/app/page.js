@@ -1,4 +1,12 @@
+import AuthComponent from "@/components/Auth";
+import SimpleNavbar from "@/components/SimpleNavbar";
+
 const Home = () => {
-  return <button className="btn btn-primary">Secondary</button>;
+  return (
+    <div>
+      <SimpleNavbar />
+      <AuthComponent />
+    </div>
+  );
 };
 export default Home;
