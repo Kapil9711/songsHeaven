@@ -1,23 +1,36 @@
 "use client";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { actives } from "./Auth";
 import ENDPOINTS from "@/network/endpoints";
-import { useDispatch } from "react-redux";
-import { SignInAction } from "@/store/slices/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser, SignInAction } from "@/store/slices/userSlice";
+import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
 
 const SignIn = ({ setActive }) => {
+  const user = useSelector((state) => state.user.value);
   const emailRef = useRef(null);
   const passRef = useRef(null);
   const dispatch = useDispatch();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (user) router.push("/dashboard/songs");
+  }, [user]);
 
   // handleSignIn
   const handleSignIn = () => {
-    console.log("clicked");
-    const email = emailRef.current.value;
-    const password = passRef.current.value;
-    if (!email) return window.alert("Please Enter Email To SignIn");
-    else if (!password) return window.alert("Please Enter Password To SignIn");
-    dispatch(SignInAction({ email, password }));
+    if (Cookies.get("token") && Cookies.get("user")) {
+      dispatch(setUser({ user: JSON.parse(Cookies.get("user")) }));
+      return router.push("/dashboard");
+    } else {
+      const email = emailRef.current.value;
+      const password = passRef.current.value;
+      if (!email) return window.alert("Please Enter Email To SignIn");
+      else if (!password)
+        return window.alert("Please Enter Password To SignIn");
+      dispatch(SignInAction({ email, password }));
+    }
   };
   return (
     <div className="w-full px-6 py-8 md:px-8 lg:w-1/2">
@@ -29,10 +42,16 @@ const SignIn = ({ setActive }) => {
         />
       </div>
       <p className="mt-3 text-xl text-center text-gray-600 dark:text-gray-200">
-        SIGN_IN
+        SIGN-IN
       </p>
       <div
-        onClick={() => (window.location.href = ENDPOINTS.GOOGLESINGIN)}
+        onClick={() => {
+          if (Cookies.get("token") && Cookies.get("user")) {
+            dispatch(setUser({ user: JSON.parse(Cookies.get("user")) }));
+            return router.push("/dashboard/songs");
+          }
+          window.location.href = ENDPOINTS.GOOGLESINGIN;
+        }}
         className="cursor-pointer flex items-center justify-center mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"
       >
         <div className="px-4 py-2">

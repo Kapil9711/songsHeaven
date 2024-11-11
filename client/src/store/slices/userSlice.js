@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import actionFactory from "@/utils/actionFactory.js";
 import ENDPOINTS from "@/network/endpoints";
+import Cookies from "js-cookie";
 
 const initialState = {
-  value: {},
+  value: null,
 };
 
 const userSlice = createSlice({
@@ -11,7 +12,8 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action) => {
-      state.value = action.payload;
+      state.value = action.payload.user;
+      Cookies.set("user", JSON.stringify(action.payload.user));
     },
   },
 });
@@ -32,14 +34,13 @@ export const SignUpAction = (data, params) => {
   return action;
 };
 export const SignInAction = (data, params) => {
-  console.log(data);
   const action = actionFactory();
   action.payload = {
     method: "POST",
     url: ENDPOINTS.SIGNIN,
     data,
     params,
+    onSuccess: setUser.type,
   };
-  console.log(action);
   return action;
 };
