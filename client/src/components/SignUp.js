@@ -1,11 +1,27 @@
 "use client";
-import { googleSignUpAction } from "@/store/slices/userSlice";
 import { actives } from "./Auth";
 import { useDispatch } from "react-redux";
 import ENDPOINTS from "@/network/endpoints";
+import { useRef } from "react";
+import Cookies from "js-cookie";
+import { setUser, SignUpAction } from "@/store/slices/userSlice";
+import { useRouter } from "next/navigation";
 
 const SignUp = ({ setActive }) => {
+  const nameRef = useRef(null);
+  const emailRef = useRef(null);
+  const passRef = useRef(null);
   const dispatch = useDispatch();
+  const router = useRouter();
+  const handleSignUp = () => {
+    const email = emailRef.current.value;
+    const password = passRef.current.value;
+    const name = nameRef.current.value;
+    if (!name) return window.alert("Please Enter Name to SignUp");
+    else if (!email) return window.alert("Please Enter Email To SignUp");
+    else if (!password) return window.alert("Please Enter Password To SignUp");
+    dispatch(SignUpAction({ name, email, password, authMethod: "local" }));
+  };
   return (
     <div className="w-full px-6 py-8 md:px-8 lg:w-1/2">
       <div className="flex justify-center mx-auto">
@@ -19,7 +35,13 @@ const SignUp = ({ setActive }) => {
         Welcome
       </p>
       <div
-        onClick={() => (window.location.href = ENDPOINTS.GOOGLESINGIN)}
+        onClick={() => {
+          if (Cookies.get("token") && Cookies.get("user")) {
+            dispatch(setUser({ user: JSON.parse(Cookies.get("user")) }));
+            return router.push("/dashboard/songs");
+          }
+          window.location.href = ENDPOINTS.GOOGLESINGIN;
+        }}
         className="cursor-pointer flex items-center justify-center mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"
       >
         <div className="px-4 py-2">
@@ -48,23 +70,21 @@ const SignUp = ({ setActive }) => {
       </div>
       <div className="flex items-center justify-between mt-4">
         <span className="w-1/5 border-b dark:border-gray-600 lg:w-1/4" />
-        <a
-          href="#"
-          className="text-xs text-center text-gray-500 uppercase dark:text-gray-400 hover:underline"
-        >
+        <p className="text-xs text-center text-gray-500 uppercase dark:text-gray-400 hover:underline">
           or Signup with email
-        </a>
+        </p>
         <span className="w-1/5 border-b dark:border-gray-400 lg:w-1/4" />
       </div>
       <div className="mt-4">
         <label
           className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200"
-          htmlFor="LoggingEmailAddress"
+          htmlFor="name"
         >
           Name
         </label>
         <input
-          id="LoggingEmailAddress"
+          ref={nameRef}
+          id="name"
           className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300"
           type="text"
         />
@@ -72,12 +92,13 @@ const SignUp = ({ setActive }) => {
       <div className="mt-4">
         <label
           className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200"
-          htmlFor="LoggingEmailAddress"
+          htmlFor="email"
         >
           Email Address
         </label>
         <input
-          id="LoggingEmailAddress"
+          id="email"
+          ref={emailRef}
           className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300"
           type="email"
         />
@@ -86,19 +107,23 @@ const SignUp = ({ setActive }) => {
         <div className="flex justify-between">
           <label
             className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200"
-            htmlFor="loggingPassword"
+            htmlFor="password"
           >
             Password
           </label>
         </div>
         <input
-          id="loggingPassword"
+          id="password"
+          ref={passRef}
           className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300"
           type="password"
         />
       </div>
       <div className="mt-6">
-        <button className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gray-800 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50">
+        <button
+          onClick={handleSignUp}
+          className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gray-800 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50"
+        >
           Sign Up
         </button>
       </div>
