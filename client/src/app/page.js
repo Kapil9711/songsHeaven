@@ -12,10 +12,9 @@ const Home = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   useEffect(() => {
-    // if (Cookies.get("token") && Cookies.get("user")) {
-    //   dispatch(setUser({ user: JSON.parse(Cookies.get("user")) }));
-    //   router.push("/dashboard/songs");
-    // }
+    if (Cookies.get("token") && Cookies.get("user")) {
+      router.push("/dashboard/songs");
+    }
     const user = searchParams.get("user");
     const token = searchParams.get("token");
     if (token && user) {

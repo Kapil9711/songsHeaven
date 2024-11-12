@@ -1,8 +1,8 @@
 "use client";
 import React, { useMemo, useState } from "react";
-import logo from "@/assests/s.png";
-import SignUp from "./Signup";
-import SignIn from "./Signin";
+
+import SignUp from "./SignUp";
+import SignIn from "./SignIn";
 
 export const actives = {
   SIGNIN: "SIGNIN",

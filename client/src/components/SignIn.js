@@ -23,7 +23,6 @@ const SignIn = ({ setActive }) => {
   const handleSignIn = () => {
     if (Cookies.get("token") && Cookies.get("user")) {
       toast.success("Login successfull");
-      dispatch(setUser({ user: JSON.parse(Cookies.get("user")) }));
       return router.push("/dashboard");
     } else {
       const email = emailRef.current.value;

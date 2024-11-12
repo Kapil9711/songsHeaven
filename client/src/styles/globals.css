@@ -13,6 +13,9 @@
     --foreground: #ededed;
   }
 }
+* {
+  scrollbar-width: none;
+}
 
 body {
   color: var(--foreground);
