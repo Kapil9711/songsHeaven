@@ -1,5 +1,6 @@
 export const baseUrl = "https://songsheaven.onrender.com/api/v1";
 // export const baseUrl = "http://localhost:8000/api/v1";
+export const jioBaseUrl = "https://saavn.dev";
 
 const ENDPOINTS = {
   GOOGLESINGIN: `${baseUrl}/auth/google`,
@@ -7,6 +8,10 @@ const ENDPOINTS = {
   SIGNUP: `${baseUrl}/auth/register`,
   LOGOUT: `${baseUrl}/auth/logout`,
   VERIFY: `${baseUrl}/auth/verify`,
+  GLOBALSEARCH: `${jioBaseUrl}/api/search`,
+  SONGSEARCH: `${jioBaseUrl}/api/search/songs`,
+  ALBUMSEARCH: `${jioBaseUrl}/api/search/albums`,
+  PLAYLISTSEARCH: `${jioBaseUrl}/api/search/playlists`,
 };
 
 export default ENDPOINTS;

@@ -15,7 +15,6 @@ const apiMiddleware = (store) => (next) => async (action) => {
   if (showToast) store.dispatch({ type: "toast/pending" });
 
   const res = await request(httpConfig);
-
   // success actions
   if (res.success === true) {
     const msg = res?.data?.message || "Success";
