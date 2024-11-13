@@ -2,22 +2,15 @@
 
 import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 
 const DashboardSideBar = () => {
   const [user, setUser] = useState("");
-  const dispatch = useDispatch();
   useEffect(() => {
     if (Cookies.get("user")) setUser(JSON.parse(Cookies.get("user")));
   }, []);
   return (
-    <aside className="flex bg-base-300 text-white flex-col w-72 h-screen px-4 py-8 overflow-y-auto  border-r rtl:border-r-0 rtl:border-l dark:bg-gray-900 dark:border-gray-700">
+    <aside className="flex bg-stone-200     text-white flex-col w-72 h-screen px-4 py-8 overflow-y-auto  border-r rtl:border-r-0 rtl:border-l dark:bg-gray-900 dark:border-gray-700">
       <a href="#" className="mx-auto">
-        {/* <img
-          className="w-auto h-6 sm:h-7"
-          src="https://merakiui.com/images/full-logo.svg"
-          alt="logo"
-        /> */}
         <p className="text-2xl text-black">SongsHeaven</p>
       </a>
       <div className="flex flex-col items-center mt-6 -mx-2">
