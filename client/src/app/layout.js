@@ -13,7 +13,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html data-theme="light" lang="en">
+    <html lang="en">
       <body className={`${poppins.className}antialiased overflow-hidden`}>
         <ReduxProvider>{children}</ReduxProvider>
         <ToastContainer autoClose={1500} />
