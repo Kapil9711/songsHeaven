@@ -16,16 +16,18 @@ const Songs = () => {
   const song = useSelector((state) => state.songs.song);
   const album = useSelector((state) => state.songs.album);
   const playlist = useSelector((state) => state.songs.playlist);
+  const query = useSelector((state) => state.songs.query);
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const dispatch = useDispatch();
 
   useEffect(() => {
+    const params = { query: query || "arjit singh", limit: 20, page: 1 };
     Array.from({ length: 3 }).forEach((item, idx) => {
-      if (idx === 0) dispatch(songSearchAction());
-      if (idx === 1) dispatch(albubmSearchAction());
-      if (idx === 2) dispatch(playlistSearchAction());
+      if (idx === 0) dispatch(songSearchAction(null, params));
+      if (idx === 1) dispatch(albubmSearchAction(null, params));
+      if (idx === 2) dispatch(playlistSearchAction(null, params));
     });
   }, []);
   useEffect(() => {

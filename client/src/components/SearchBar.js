@@ -1,9 +1,44 @@
 "use client";
+import {
+  playlistSearchAction,
+  setQuery,
+  songSearchAction,
+} from "@/store/slices/songSlice";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { albubmSearchAction } from "./../store/slices/songSlice";
+
+let id = "";
+const debounce = (fn) => {
+  return (e) => {
+    clearTimeout(id);
+    id = setTimeout(() => {
+      fn(e);
+    }, 500);
+  };
+};
 
 const SearchBar = () => {
+  const dispatch = useDispatch();
+  const handleQuery = (query) => {
+    dispatch(setQuery(query));
+    const params = { query, page: 1, limit: 20 };
+    dispatch(songSearchAction(null, params));
+    dispatch(albubmSearchAction(null, params));
+    dispatch(playlistSearchAction(null, params));
+  };
+
   return (
     <label className="input input-bordered border-2 rounded-full md:w-96  lg:w-[550px] flex items-center gap-2">
-      <input type="text" className="grow" placeholder="Search" />
+      <input
+        onChange={({ target }) => {
+          const query = target.value;
+          debounce(handleQuery)(query || "arjit singh");
+        }}
+        type="text"
+        className="grow"
+        placeholder="Search"
+      />
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 16 16"

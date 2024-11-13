@@ -9,6 +9,7 @@ const initialState = {
   playlist: [],
   currentSong: {},
   currentList: [],
+  query: "",
 };
 
 const songSlice = createSlice({
@@ -31,6 +32,9 @@ const songSlice = createSlice({
     setCurrentList: (state, action) => {
       state.currentList = action.payload;
     },
+    setQuery: (state, action) => {
+      state.query = action.payload;
+    },
   },
 });
 
@@ -40,6 +44,7 @@ export const {
   setPlaylist,
   setCurrentSong,
   setCurrentList,
+  setQuery,
 } = songSlice.actions;
 export default songSlice.reducer;
 
