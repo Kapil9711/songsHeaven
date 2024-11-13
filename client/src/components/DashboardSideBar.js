@@ -13,11 +13,12 @@ const DashboardSideBar = () => {
   return (
     <aside className="flex bg-base-300 text-white flex-col w-72 h-screen px-4 py-8 overflow-y-auto  border-r rtl:border-r-0 rtl:border-l dark:bg-gray-900 dark:border-gray-700">
       <a href="#" className="mx-auto">
-        <img
+        {/* <img
           className="w-auto h-6 sm:h-7"
           src="https://merakiui.com/images/full-logo.svg"
           alt="logo"
-        />
+        /> */}
+        <p className="text-2xl text-black">SongsHeaven</p>
       </a>
       <div className="flex flex-col items-center mt-6 -mx-2">
         <img

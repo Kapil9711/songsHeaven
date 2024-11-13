@@ -1,7 +1,7 @@
+"use client";
 import { createSlice } from "@reduxjs/toolkit";
 import ENDPOINTS from "@/network/endpoints";
 import actionFactory from "@/utils/actionFactory";
-import Cookies from "js-cookie";
 
 const initialState = {
   song: [],
@@ -17,6 +17,7 @@ const songSlice = createSlice({
   reducers: {
     setSong: (state, action) => {
       state.song = action.payload.data.results;
+      if (window.setLoading) window.setLoading(false);
     },
     setAlbum: (state, action) => {
       state.album = action.payload.data.results;
@@ -57,7 +58,7 @@ export const globalSearchAction = (data, params) => {
   return action;
 };
 export const songSearchAction = (data, params) => {
-  if (!params) params = { query: "arjit singh", limit: 10, page: 0 };
+  if (!params) params = { query: "arjit singh", limit: 20, page: 0 };
   const action = actionFactory();
   action.payload = {
     method: "GET",
@@ -70,7 +71,7 @@ export const songSearchAction = (data, params) => {
   return action;
 };
 export const albubmSearchAction = (data, params) => {
-  if (!params) params = { query: "arjit singh", limit: 10, page: 0 };
+  if (!params) params = { query: "arjit singh", limit: 20, page: 0 };
   const action = actionFactory();
   action.payload = {
     method: "GET",
@@ -83,7 +84,7 @@ export const albubmSearchAction = (data, params) => {
   return action;
 };
 export const playlistSearchAction = (data, params) => {
-  if (!params) params = { query: "arjit singh", limit: 10, page: 0 };
+  if (!params) params = { query: "arjit singh", limit: 20, page: 0 };
   const action = actionFactory();
   action.payload = {
     method: "GET",

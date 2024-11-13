@@ -28,6 +28,7 @@ const apiMiddleware = (store) => (next) => async (action) => {
     const msg = res?.data?.message || "Something Went Wrong Try Again Later";
     if (showToast) store.dispatch({ type: "toast/error", payload: msg });
     if (onError) store.dispatch({ type: onError, payload: msg });
+    if (window.setLoading) window.setLoading(false);
   }
 };
 

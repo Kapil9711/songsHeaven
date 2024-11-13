@@ -84,10 +84,10 @@ const ShowSongs = ({ song, loading = "false", error = "" }) => {
           </h1>
         ) : (
           <div className="flex gap-8  min-w-max  ">
-            {song.map(({ image, name, downloadUrl, duration }, idx) => (
+            {song.map(({ image, name, downloadUrl, duration, id }, idx) => (
               <SongCard
                 key={name + idx}
-                songData={{ name, image, downloadUrl, duration }}
+                songData={{ name, image, downloadUrl, duration, id }}
               />
             ))}
           </div>

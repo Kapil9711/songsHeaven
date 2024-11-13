@@ -7,6 +7,8 @@ import { FaHeart } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import { setCurrentList, setCurrentSong } from "@/store/slices/songSlice";
 import startDownload from "@/utils/startDownload";
+import getFormatedTime from "./../../../utils/getFormatedTime";
+import Pagination from "@/components/Pagination";
 
 const SongDetail = () => {
   const song = useSelector((state) => state.songs.song);
@@ -24,8 +26,12 @@ const SongDetail = () => {
 
   return (
     <div className="pt-4 ">
-      <div className="px-5 ">
-        <GoBackButton />
+      <div className=" px-4 sm:px-10 md:px-16 lg:px-20 xl:px-24">
+        <div className="flex justify-between">
+          <GoBackButton />
+          <Pagination setLoading={setLoading} />
+        </div>
+
         <button className="btn  btn-secondary block mx-auto">Songs</button>
       </div>
       {/* songsDetails */}
@@ -53,7 +59,8 @@ const SongDetail = () => {
             {song.map(({ name, image, downloadUrl, duration, id }, idx) => (
               <SongDetailCard
                 key={id + idx}
-                songData={{ name, image, downloadUrl, duration }}
+                songData={{ name, image, downloadUrl, duration, id }}
+                idx={idx}
               />
             ))}
           </div>
@@ -63,7 +70,7 @@ const SongDetail = () => {
   );
 };
 
-const SongDetailCard = ({ songData }) => {
+const SongDetailCard = ({ songData, idx }) => {
   const { name, image = [], downloadUrl = [], duration } = songData;
   const song = useSelector((state) => state.songs.song);
   const dispatch = useDispatch();
@@ -77,11 +84,17 @@ const SongDetailCard = ({ songData }) => {
       className="flex items-center cursor-pointer gap-2 lg:gap-5 md:gap-4 xl:gap-8 shadow-md relative"
     >
       <img
-        className="bg-cover h-10 w-10 lg:h-12 lg:w-12 xl:h-16 xl:w-16 rounded-sm  "
+        className="bg-cover  h-[56px] w-[56px] xl:h-16 xl:w-16 rounded-sm  "
         src={image[2]?.url}
       />
-      <div>
-        <p className=" text-sm md:text-md capitalize">{name?.slice(0, 30)}</p>
+      <div className="flex gap-2">
+        <p className=" text-sm md:text-md capitalize">
+          <span className="text-lg text-bold mr-4">{idx + 1}</span>
+        </p>
+        <div>
+          <p>{name?.slice(0, 30)}</p>
+          <p className="text-xs">{getFormatedTime(Number(duration))}</p>
+        </div>
       </div>
       <div
         onClick={(e) => e.stopPropagation()}
