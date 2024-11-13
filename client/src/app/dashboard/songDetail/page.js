@@ -9,6 +9,8 @@ import { setCurrentList, setCurrentSong } from "@/store/slices/songSlice";
 import startDownload from "@/utils/startDownload";
 import getFormatedTime from "./../../../utils/getFormatedTime";
 import Pagination from "@/components/Pagination";
+import useAddFavorite from "@/cutomHooks/useAddFavorite";
+import { addFavoriteAction, getFavoriteAction } from "@/store/slices/favSlice";
 
 const SongDetail = () => {
   const song = useSelector((state) => state.songs.song);
@@ -71,7 +73,7 @@ const SongDetail = () => {
 };
 
 const SongDetailCard = ({ songData, idx }) => {
-  const { name, image = [], downloadUrl = [], duration } = songData;
+  const { name, image = [], downloadUrl = [], duration, id } = songData;
   const song = useSelector((state) => state.songs.song);
   const dispatch = useDispatch();
   const handleClick = () => {
@@ -100,7 +102,7 @@ const SongDetailCard = ({ songData, idx }) => {
         onClick={(e) => e.stopPropagation()}
         className="absolute right-2 lg:right-5 xl:right-8 flex items-center gap-2"
       >
-        <LikeButton />
+        <LikeButton songData={songData} />
         <button
           onClick={() => startDownload(downloadUrl[4].url, name)}
           className="btn"
@@ -112,11 +114,25 @@ const SongDetailCard = ({ songData, idx }) => {
   );
 };
 
-export const LikeButton = () => {
+export const LikeButton = ({ songData }) => {
+  const addToFavorite = useAddFavorite();
+  const favIdObject = useSelector((state) => state.favorite.favIdObject);
+  const dispatch = useDispatch();
   return (
     <>
-      <button className="btn">
-        <FaHeart className="md:text-md lg:text-lg xl:text-xl" />
+      <button
+        onClick={() => {
+          dispatch(addFavoriteAction({ songInfo: songData }));
+          setTimeout(() => dispatch(getFavoriteAction()), 200);
+        }}
+        className="btn"
+      >
+        <FaHeart
+          style={{
+            color: favIdObject[songData.id] ? "hsl(335, 79%, 49%)" : "",
+          }}
+          className="md:text-md lg:text-lg xl:text-xl"
+        />
       </button>
     </>
   );

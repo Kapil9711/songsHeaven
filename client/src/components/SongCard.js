@@ -6,9 +6,10 @@ import { FaHeart } from "react-icons/fa";
 import { IoMdDownload } from "react-icons/io";
 import startDownload from "@/utils/startDownload";
 import getFormatedTime from "@/utils/getFormatedTime";
+import useAddFavorite from "@/cutomHooks/useAddFavorite";
 
 const SongCard = ({ songData, type = "song" }) => {
-  const { name, image = [], downloadUrl = [], duration } = songData;
+  const { name, image = [], downloadUrl = [], duration, id } = songData;
   const song = useSelector((state) => state.songs.song);
   const dispatch = useDispatch();
   const handleClick = () => {
@@ -29,15 +30,15 @@ const SongCard = ({ songData, type = "song" }) => {
         <h2 className="flex flex-col text-xs truncate font-semibold text-gray-800 capitalize dark:text-white">
           {name?.slice(0, 10)}
           {type === "song" && (
-            <span className="text-sx">{getFormatedTime(duration)}</span>
+            <span className="text-sx text-zinc-600">
+              {getFormatedTime(duration)}
+            </span>
           )}
         </h2>
 
         {type === "song" && (
           <div onClick={(e) => e.stopPropagation()} className="flex gap-1">
-            <button className="btn btn-sm ">
-              <FaHeart />
-            </button>
+            <FavButton songData={songData} />
             <button
               onClick={() => startDownload(downloadUrl[4].url, name)}
               className="btn btn-sm "
@@ -48,6 +49,25 @@ const SongCard = ({ songData, type = "song" }) => {
         )}
       </div>
     </div>
+  );
+};
+
+// add to fav
+const FavButton = ({ songData }) => {
+  const addToFav = useAddFavorite();
+  const favIdObject = useSelector((state) => state.favorite.favIdObject);
+
+  return (
+    <button
+      onClick={() => {
+        addToFav(songData);
+      }}
+      className="btn btn-sm "
+    >
+      <FaHeart
+        style={{ color: favIdObject[songData.id] ? "hsl(335, 79%, 49%)" : "" }}
+      />
+    </button>
   );
 };
 

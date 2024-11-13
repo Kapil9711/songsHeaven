@@ -3,11 +3,13 @@ import userReducer from "./slices/userSlice.js";
 import apiMiddleware from "./middlewares/apiMiddleware.js";
 import toastMiddleware from "./middlewares/toastMiddleware.js";
 import songReducer from "./slices/songSlice.js";
+import favReducer from "./slices/favSlice.js";
 
 const store = configureStore({
   reducer: {
     user: userReducer,
     songs: songReducer,
+    favorite: favReducer,
   },
   middleware: (getDefaultMiddleware) => [
     ...getDefaultMiddleware(),

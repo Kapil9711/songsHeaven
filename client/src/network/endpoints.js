@@ -8,6 +8,10 @@ const ENDPOINTS = {
   SIGNUP: `${baseUrl}/auth/register`,
   LOGOUT: `${baseUrl}/auth/logout`,
   VERIFY: `${baseUrl}/auth/verify`,
+
+  ADDTOFAV: `${baseUrl}/favorites`,
+  GETFAV: `${baseUrl}/favorites`,
+
   GLOBALSEARCH: `${jioBaseUrl}/api/search`,
   SONGSEARCH: `${jioBaseUrl}/api/search/songs`,
   ALBUMSEARCH: `${jioBaseUrl}/api/search/albums`,

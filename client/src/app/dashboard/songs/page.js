@@ -2,6 +2,7 @@
 import SearchBar from "@/components/SearchBar";
 import Skeleton from "@/components/Skeleton";
 import SongCard from "@/components/SongCard";
+import { getFavoriteAction } from "@/store/slices/favSlice";
 import {
   albubmSearchAction,
   globalSearchAction,
@@ -24,11 +25,10 @@ const Songs = () => {
 
   useEffect(() => {
     const params = { query: query || "arjit singh", limit: 20, page: 1 };
-    Array.from({ length: 3 }).forEach((item, idx) => {
-      if (idx === 0) dispatch(songSearchAction(null, params));
-      if (idx === 1) dispatch(albubmSearchAction(null, params));
-      if (idx === 2) dispatch(playlistSearchAction(null, params));
-    });
+    dispatch(getFavoriteAction());
+    dispatch(songSearchAction(null, params));
+    dispatch(albubmSearchAction(null, params));
+    dispatch(playlistSearchAction(null, params));
   }, []);
   useEffect(() => {
     if (song.length > 0) setLoading(false);

@@ -20,7 +20,7 @@ export const createFavorites = catchAsyncError(async (req, res, next) => {
   });
   if (!favorite) return next(new CustomError("Internal server Error", 500));
   res.status(201).json({
-    message: "Playlist created Successfully",
+    message: "Favorite Added Successfully",
     success: true,
     favorite,
   });
