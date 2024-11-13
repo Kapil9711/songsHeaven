@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
 import { useSelector } from "react-redux";
@@ -17,17 +17,26 @@ const Player = () => {
   const { downloadUrl = [], image = [] } = currentSong;
 
   return (
-    <div className="flex">
-      <img className="bg-cover rouned-sm w-20 h-20 block" src={image[2]?.url} />
-      <MemoizedMusicPlayer downloadUrl={downloadUrl} quality={quality} />
-      <div className="w-48 h-20 flex justify-center items-center bg-white">
-        <MemoizedDropDown
-          setQuality={setQuality}
-          quality={quality}
-          downloadUrl={downloadUrl}
-        />
-      </div>
-    </div>
+    <>
+      {Object.keys(currentSong).length === 0 ? (
+        <h1></h1>
+      ) : (
+        <div className="flex">
+          <img
+            className="bg-cover rouned-sm w-20 h-20 block"
+            src={image[2]?.url}
+          />
+          <MemoizedMusicPlayer downloadUrl={downloadUrl} quality={quality} />
+          <div className="w-48 h-20 flex justify-center items-center bg-white">
+            <MemoizedDropDown
+              setQuality={setQuality}
+              quality={quality}
+              downloadUrl={downloadUrl}
+            />
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 

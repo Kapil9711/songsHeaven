@@ -1,13 +1,17 @@
 "use client";
-import { setCurrentSong } from "@/store/slices/songSlice";
+import { setCurrentList, setCurrentSong } from "@/store/slices/songSlice";
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-const SongCard = ({ name, image = [], downloadUrl, type = "song" }) => {
+const SongCard = ({ songData, type = "song" }) => {
+  const { name, image = [], downloadUrl, duration } = songData;
+  const song = useSelector((state) => state.songs.song);
   const dispatch = useDispatch();
   const handleClick = () => {
-    console.log("clicked");
-    if (type === "song") dispatch(setCurrentSong({ name, image, downloadUrl }));
+    if (type === "song") {
+      dispatch(setCurrentSong({ name, image, downloadUrl, duration }));
+      dispatch(setCurrentList(song));
+    }
   };
   return (
     <div

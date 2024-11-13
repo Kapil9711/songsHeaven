@@ -8,6 +8,7 @@ import {
   playlistSearchAction,
   songSearchAction,
 } from "@/store/slices/songSlice";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -19,9 +20,6 @@ const Songs = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const dispatch = useDispatch();
-  console.log("song", song);
-  console.log("album", album);
-  console.log("playlist", playlist);
 
   useEffect(() => {
     Array.from({ length: 3 }).forEach((item, idx) => {
@@ -39,109 +37,141 @@ const Songs = () => {
       <div className="container mx-auto flex justify-center">
         <SearchBar />
       </div>
-      {/* SongContent */}
+
       <div
         style={{ maxHeight: "calc(100vh - 180px)" }}
         className="overflow-y-scroll mt-1"
       >
         <div className="mt-1 px-1 md:px-2  lg:px-5 xl:px-8">
-          {/* // songs */}
-          <div className=" p-4 ">
-            <h2 className="text-2xl font-bold mb-5 pl-5">Songs</h2>
+          <ShowSongs song={song} loading={loading} />
 
-            <div className="overflow-scroll scroll-smooth">
-              {loading ? (
-                <div className="flex gap-8  min-w-max  ">
-                  <Skeleton />
-                  <Skeleton />
-                  <Skeleton />
-                  <Skeleton />
-                  <Skeleton />
-                  <Skeleton />
-                </div>
-              ) : error ? (
-                <h1 className="text-center text-muted text-xl py-4  capitalize">
-                  Some thing went wrong
-                </h1>
-              ) : (
-                <div className="flex gap-8  min-w-max  ">
-                  {song.map(({ image, name, downloadUrl }, idx) => (
-                    <SongCard
-                      key={name + idx}
-                      name={name}
-                      image={image}
-                      downloadUrl={downloadUrl}
-                    />
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
-          {/* albums */}
-          <div className=" p-4 ">
-            <h2 className="text-2xl font-bold mb-5">Album</h2>
+          <ShowAlbum album={album} loading={loading} />
 
-            <div className="overflow-scroll scroll-smooth">
-              {loading ? (
-                <div className="flex gap-8  min-w-max  ">
-                  <Skeleton />
-                  <Skeleton />
-                  <Skeleton />
-                  <Skeleton />
-                  <Skeleton />
-                  <Skeleton />
-                </div>
-              ) : error ? (
-                <h1 className="text-center text-muted text-xl py-5  capitalize">
-                  Some thing went wrong
-                </h1>
-              ) : (
-                <div className="flex gap-8  min-w-max  ">
-                  {album.map(({ image, name }, idx) => (
-                    <SongCard
-                      key={name + idx}
-                      name={name}
-                      image={image}
-                      type="album"
-                    />
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
-          {/* playlist */}
-          <div className=" p-4 ">
-            <h2 className="text-2xl font-bold mb-5">Playlist</h2>
-
-            <div className="overflow-scroll scroll-smooth">
-              {loading ? (
-                <div className="flex gap-8  min-w-max  ">
-                  <Skeleton />
-                  <Skeleton />
-                  <Skeleton />
-                  <Skeleton />
-                  <Skeleton />
-                  <Skeleton />
-                </div>
-              ) : error ? (
-                <h1 className="text-center text-muted text-xl py-4  capitalize">
-                  Some thing went wrong
-                </h1>
-              ) : (
-                <div className="flex gap-8  min-w-max  ">
-                  {playlist.map(({ image, name }, idx) => (
-                    <SongCard
-                      key={name + idx}
-                      name={name}
-                      image={image}
-                      type="playlist"
-                    />
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
+          <ShowPlaylist playlist={playlist} loading={loading} />
         </div>
+      </div>
+    </div>
+  );
+};
+
+const ShowSongs = ({ song, loading = "false", error = "" }) => {
+  const router = useRouter();
+  return (
+    <div className="p-4">
+      <h2 className="text-2xl relative font-bold mb-5 px-5">
+        Songs
+        <span
+          onClick={() => router.push("/dashboard/songDetail")}
+          className="absolute text-sm text-muted top-2 right-10"
+        >
+          <a className="link link-neutral">see more</a>
+        </span>
+      </h2>
+
+      <div className="overflow-scroll scroll-smooth">
+        {loading ? (
+          <div className="flex gap-8  min-w-max  ">
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+          </div>
+        ) : error ? (
+          <h1 className="text-center text-muted text-xl py-4  capitalize">
+            Some thing went wrong
+          </h1>
+        ) : (
+          <div className="flex gap-8  min-w-max  ">
+            {song.map(({ image, name, downloadUrl, duration }, idx) => (
+              <SongCard
+                key={name + idx}
+                songData={{ name, image, downloadUrl, duration }}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+const ShowAlbum = ({ album, loading = "false", error = "" }) => {
+  return (
+    <div className=" p-4 ">
+      <h2 className="text-2xl relative font-bold mb-5 px-5">
+        Album
+        <span className="absolute text-sm text-muted top-2 right-10">
+          <a className="link link-neutral">see more</a>
+        </span>
+      </h2>
+
+      <div className="overflow-scroll scroll-smooth">
+        {loading ? (
+          <div className="flex gap-8  min-w-max  ">
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+          </div>
+        ) : error ? (
+          <h1 className="text-center text-muted text-xl py-5  capitalize">
+            Some thing went wrong
+          </h1>
+        ) : (
+          <div className="flex gap-8  min-w-max  ">
+            {album.map(({ image, name }, idx) => (
+              <SongCard
+                key={name + idx}
+                songData={{ name, image }}
+                type="album"
+              />
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+const ShowPlaylist = ({ playlist, loading = "false", error = "" }) => {
+  return (
+    <div className=" p-4 ">
+      <h2 className="text-2xl relative font-bold mb-5 px-5">
+        Playlist
+        <span className="absolute text-sm text-muted top-2 right-10">
+          <a className="link link-neutral">see more</a>
+        </span>
+      </h2>
+
+      <div className="overflow-scroll scroll-smooth">
+        {loading ? (
+          <div className="flex gap-8  min-w-max  ">
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+          </div>
+        ) : error ? (
+          <h1 className="text-center text-muted text-xl py-5  capitalize">
+            Some thing went wrong
+          </h1>
+        ) : (
+          <div className="flex gap-8  min-w-max  ">
+            {playlist.map(({ image, name }, idx) => (
+              <SongCard
+                key={name + idx}
+                songData={{ name, image }}
+                type="album"
+              />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

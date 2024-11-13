@@ -8,6 +8,7 @@ const initialState = {
   album: [],
   playlist: [],
   currentSong: {},
+  currentList: [],
 };
 
 const songSlice = createSlice({
@@ -26,11 +27,19 @@ const songSlice = createSlice({
     setCurrentSong: (state, action) => {
       state.currentSong = action.payload;
     },
+    setCurrentList: (state, action) => {
+      state.currentList = action.payload;
+    },
   },
 });
 
-export const { setSong, setAlbum, setPlaylist, setCurrentSong } =
-  songSlice.actions;
+export const {
+  setSong,
+  setAlbum,
+  setPlaylist,
+  setCurrentSong,
+  setCurrentList,
+} = songSlice.actions;
 export default songSlice.reducer;
 
 // create actions
