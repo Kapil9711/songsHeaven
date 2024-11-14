@@ -12,10 +12,18 @@ import authRouter from "./router/authRouter.js";
 import playlistRouter from "./router/playlistRouter.js";
 import favoriteRouter from "./router/favoriteRouter.js";
 import friendRouter from "./router/friendRouter.js";
+import { Server } from "socket.io";
+import socketHandler from "./socket/socketHandler.js";
 
 // express setup
 const app = express();
 const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"],
+  },
+});
 
 // cors
 app.use(cors());
@@ -47,6 +55,8 @@ app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/playlists", playlistRouter);
 app.use("/api/v1/favorites", favoriteRouter);
 app.use("/api/v1/friends", friendRouter);
+
+socketHandler(io);
 
 // handles global error
 app.use(globalErrorHandler);
