@@ -19,12 +19,17 @@ const songSlice = createSlice({
     setSong: (state, action) => {
       state.song = action.payload.data.results;
       if (window.setLoading) window.setLoading(false);
+      if (window.setSearchLoading) window.setSearchLoading(false);
     },
     setAlbum: (state, action) => {
       state.album = action.payload.data.results;
+      if (window.setSearchLoading) window.setSearchLoading(false);
+      if (window.setLoading) window.setLoading(false);
     },
     setPlaylist: (state, action) => {
       state.playlist = action.payload.data.results;
+      if (window.setSearchLoading) window.setSearchLoading(false);
+      if (window.setLoading) window.setLoading(false);
     },
     setCurrentSong: (state, action) => {
       state.currentSong = action.payload;

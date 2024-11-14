@@ -24,6 +24,7 @@ const Songs = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    window.setSearchLoading = setLoading;
     const params = { query: query || "arjit singh", limit: 20, page: 1 };
     dispatch(getFavoriteAction());
     dispatch(songSearchAction(null, params));

@@ -26,7 +26,7 @@ const SongCard = ({ songData, type = "song" }) => {
         backgroundImage: `url(${image[2]?.url})`,
       }}
     >
-      <div className="flex gap-2 items-center   w-full px-2 py-2 overflow-hidden rounded-b-lg backdrop-blur-sm bg-white/60 dark:bg-gray-800/60">
+      <div className="flex justify-between items-center   w-full px-2 py-2 overflow-hidden rounded-b-lg backdrop-blur-sm bg-white/60 dark:bg-gray-800/60">
         <h2 className="flex flex-col text-xs truncate font-semibold text-gray-800 capitalize dark:text-white">
           {name?.slice(0, 10)}
           {type === "song" && (

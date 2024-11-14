@@ -32,6 +32,7 @@ const SearchBar = () => {
     <label className="input input-bordered border-2 rounded-full md:w-96  lg:w-[550px] flex items-center gap-2">
       <input
         onChange={({ target }) => {
+          window.setSearchLoading(true);
           const query = target.value;
           debounce(handleQuery)(query || "arjit singh");
         }}
