@@ -100,11 +100,15 @@ const ShowSongs = ({ song, loading = "false", error = "" }) => {
 };
 
 const ShowAlbum = ({ album, loading = "false", error = "" }) => {
+  const router = useRouter();
   return (
     <div className=" p-4 ">
       <h2 className="text-2xl relative font-bold mb-5 px-5">
         Album
-        <span className="absolute text-sm text-muted top-2 right-10">
+        <span
+          onClick={() => router.push("/dashboard/albumDetail")}
+          className="absolute text-sm text-muted top-2 right-10"
+        >
           <a className="link link-neutral">see more</a>
         </span>
       </h2>
@@ -140,11 +144,15 @@ const ShowAlbum = ({ album, loading = "false", error = "" }) => {
 };
 
 const ShowPlaylist = ({ playlist, loading = "false", error = "" }) => {
+  const router = useRouter();
   return (
     <div className=" p-4 ">
       <h2 className="text-2xl relative font-bold mb-5 px-5">
         Playlist
-        <span className="absolute text-sm text-muted top-2 right-10">
+        <span
+          onClick={() => router.push("/dashboard/playlistDetail")}
+          className="absolute text-sm text-muted top-2 right-10"
+        >
           <a className="link link-neutral">see more</a>
         </span>
       </h2>
