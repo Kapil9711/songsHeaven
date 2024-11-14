@@ -10,7 +10,6 @@ import startDownload from "@/utils/startDownload";
 import getFormatedTime from "./../../../utils/getFormatedTime";
 import Pagination from "@/components/Pagination";
 import useAddFavorite from "@/cutomHooks/useAddFavorite";
-import { addFavoriteAction, getFavoriteAction } from "@/store/slices/favSlice";
 
 const SongDetail = () => {
   const song = useSelector((state) => state.songs.song);

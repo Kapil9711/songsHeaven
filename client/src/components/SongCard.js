@@ -56,7 +56,6 @@ const SongCard = ({ songData, type = "song" }) => {
 const FavButton = ({ songData }) => {
   const addToFav = useAddFavorite();
   const favIdObject = useSelector((state) => state.favorite.favIdObject);
-
   return (
     <button
       onClick={() => {

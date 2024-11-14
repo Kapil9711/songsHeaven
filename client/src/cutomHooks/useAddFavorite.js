@@ -9,7 +9,6 @@ const useAddFavorite = () => {
   const favIdObject = useSelector((state) => state.favorite.favIdObject);
   const [songData, setSongData] = useState(null);
   const dispatch = useDispatch();
-
   useEffect(() => {
     window.socket.on("favorite-update", (favorites) => {
       dispatch(setFavorite({ favorites }));
@@ -22,7 +21,6 @@ const useAddFavorite = () => {
       if (userId) {
         const { id } = songData;
         if (favIdObject[id]) {
-          console.log("removing");
           window.socket.emit("favorite-remove", { userId, songId: id });
         } else window.socket.emit("favorite-add", { userId, songData });
       }

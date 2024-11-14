@@ -80,9 +80,9 @@ const ShowSongs = ({ song, loading = "false", error = "" }) => {
             <Skeleton />
             <Skeleton />
           </div>
-        ) : error ? (
+        ) : song.length === 0 ? (
           <h1 className="text-center text-muted text-xl py-4  capitalize">
-            Some thing went wrong
+            Song Not Found
           </h1>
         ) : (
           <div className="flex gap-8  min-w-max  ">
@@ -119,9 +119,9 @@ const ShowAlbum = ({ album, loading = "false", error = "" }) => {
             <Skeleton />
             <Skeleton />
           </div>
-        ) : error ? (
+        ) : album.length === 0 ? (
           <h1 className="text-center text-muted text-xl py-5  capitalize">
-            Some thing went wrong
+            Album Not Found
           </h1>
         ) : (
           <div className="flex gap-8  min-w-max  ">
@@ -159,9 +159,9 @@ const ShowPlaylist = ({ playlist, loading = "false", error = "" }) => {
             <Skeleton />
             <Skeleton />
           </div>
-        ) : error ? (
+        ) : playlist.length === 0 ? (
           <h1 className="text-center text-muted text-xl py-5  capitalize">
-            Some thing went wrong
+            Playlist Not Found
           </h1>
         ) : (
           <div className="flex gap-8  min-w-max  ">

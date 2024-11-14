@@ -5,6 +5,7 @@ const socketHandler = (io) => {
     console.log("A user connected:", socket.id);
 
     socket.on("favorite-add", async ({ userId, songData }) => {
+      console.log("addding");
       try {
         const { id, name, duration, image, downloadUrl } = songData;
         const isExist = await Favorite.findOne({ userId, id });
