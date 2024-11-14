@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import SongCard from "@/components/SongCard";
 import Skeleton from "@/components/Skeleton";
 import GoBackButton from "@/components/GoBackButton";
+import { ShowSkeleton } from "../albumDetail/page";
 
 const AlbumDetail = ({}) => {
   const playlist = useSelector((state) => state.songs.playlist);
@@ -15,7 +16,7 @@ const AlbumDetail = ({}) => {
     setTimeout(() => {
       setLoading(false);
       if (playlist.length === 0) setError("Songs Not found");
-    }, 1000);
+    }, 600);
   }, []);
 
   return (
@@ -27,29 +28,16 @@ const AlbumDetail = ({}) => {
         <button className="btn btn-secondary block mx-auto">Playlist</button>
       </div>
       {/* album details  */}
-      <div>
+      <div
+        style={{ height: "calc(100vh - 108px)" }}
+        className="mt-4 pb-28 px-2 md:px-4 lg:px-5 xl:px-10 overflow-scroll"
+      >
         {loading ? (
-          <div className="album-container">
-            <Skeleton />
-            <Skeleton />
-            <Skeleton />
-            <Skeleton />
-            <Skeleton />
-            <Skeleton />
-            <Skeleton />
-            <Skeleton />
-            <Skeleton />
-            <Skeleton />
-            <Skeleton />
-            <Skeleton />
-            <Skeleton />
-            <Skeleton />
-            <Skeleton />
-          </div>
+          <ShowSkeleton />
         ) : error ? (
           <NotFoundMessage error={error} />
         ) : (
-          <div className="album-container">
+          <div className="flex  flex-wrap gap-8 justify-center ">
             {playlist.map(({ image, name }, idx) => (
               <SongCard
                 key={name + idx}

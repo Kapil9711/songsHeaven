@@ -37,8 +37,8 @@ const SongDetail = () => {
       </div>
       {/* songsDetails */}
       <div
-        style={{ maxHeight: "calc(100vh - 200px)" }}
-        className="xl:px-32  overflow-y-scroll"
+        style={{ maxHeight: "calc(100vh - 120px)" }}
+        className="xl:px-32 pb-28 mt-1  overflow-y-scroll"
       >
         {loading ? (
           <div className="py-8 px-8 flex flex-col gap-5 mt-4">
@@ -56,7 +56,7 @@ const SongDetail = () => {
         ) : error ? (
           <NotFoundMessage error={error} />
         ) : (
-          <div className="py-8 px-2 md:px-4 lg:px-5 xl:px-8 flex flex-col gap-5 mt-4">
+          <div className="py-2 px-2 md:px-4 lg:px-5 xl:px-8 flex flex-col gap-5 mt-4">
             {song.map(({ name, image, downloadUrl, duration, id }, idx) => (
               <SongDetailCard
                 key={id + idx}

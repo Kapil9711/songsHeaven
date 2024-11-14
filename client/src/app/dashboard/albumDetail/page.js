@@ -12,44 +12,32 @@ const AlbumDetail = ({}) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setTimeout(() => {
+    const id = setTimeout(() => {
       setLoading(false);
       if (album.length === 0) setError("Songs Not found");
-    }, 1000);
+    }, 600);
+    return () => clearTimeout(id);
   }, []);
 
   return (
     <div className="pt-4">
-      <div className=" px-4 sm:px-10 md:px-16 lg:px-20 xl:px-24">
+      <div className="  px-4 sm:px-10 md:px-16 lg:px-20 xl:px-24 ">
         <div className="flex justify-between">
           <GoBackButton />
         </div>
         <button className="btn btn-secondary block mx-auto">Album</button>
       </div>
       {/* album details  */}
-      <div>
+      <div
+        style={{ height: "calc(100vh - 120px)" }}
+        className="mt-4 pb-28 px-2 md:px-4 lg:px-5 xl:px-10 overflow-scroll "
+      >
         {loading ? (
-          <div className="album-container">
-            <Skeleton />
-            <Skeleton />
-            <Skeleton />
-            <Skeleton />
-            <Skeleton />
-            <Skeleton />
-            <Skeleton />
-            <Skeleton />
-            <Skeleton />
-            <Skeleton />
-            <Skeleton />
-            <Skeleton />
-            <Skeleton />
-            <Skeleton />
-            <Skeleton />
-          </div>
+          <ShowSkeleton />
         ) : error ? (
           <NotFoundMessage error={error} />
         ) : (
-          <div className="album-container">
+          <div className=" flex  flex-wrap gap-8 justify-center  ">
             {album.map(({ image, name }, idx) => (
               <SongCard
                 key={name + idx}
@@ -60,6 +48,33 @@ const AlbumDetail = ({}) => {
           </div>
         )}
       </div>
+    </div>
+  );
+};
+
+export const ShowSkeleton = () => {
+  return (
+    <div className=" flex flex-wrap justify-center gap-8 ">
+      <Skeleton />
+      <Skeleton />
+      <Skeleton />
+      <Skeleton />
+      <Skeleton />
+      <Skeleton />
+      <Skeleton />
+      <Skeleton />
+      <Skeleton />
+      <Skeleton />
+      <Skeleton />
+      <Skeleton />
+      <Skeleton />
+      <Skeleton />
+      <Skeleton />
+      <Skeleton />
+      <Skeleton />
+      <Skeleton />
+      <Skeleton />
+      <Skeleton />
     </div>
   );
 };

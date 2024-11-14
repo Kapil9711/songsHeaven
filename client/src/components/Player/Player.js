@@ -21,7 +21,7 @@ const Player = () => {
       {Object.keys(currentSong).length === 0 ? (
         <h1></h1>
       ) : (
-        <div className="flex">
+        <div className="flex w-full">
           <img
             className="bg-cover rouned-sm w-20 h-20 block"
             src={image[2]?.url}
@@ -83,6 +83,7 @@ const QualityDropDown = ({ setQuality, quality, downloadUrl }) => {
 const MusicPlayer = ({ downloadUrl, quality }) => {
   return (
     <AudioPlayer
+      className="flex-1"
       autoPlay
       src={downloadUrl[qualityObj[quality]]?.url}
       onPlay={(e) => console.log("onPlay")}

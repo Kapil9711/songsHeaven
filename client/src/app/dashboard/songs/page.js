@@ -42,10 +42,10 @@ const Songs = () => {
       </div>
 
       <div
-        style={{ maxHeight: "calc(100vh - 180px)" }}
+        style={{ maxHeight: "calc(100vh - 80px)" }}
         className="overflow-y-scroll mt-1"
       >
-        <div className="mt-1 px-1 md:px-2  lg:px-5 xl:px-8">
+        <div className="mt-1 pb-24 px-1 md:px-2  lg:px-5 xl:px-8">
           <ShowSongs song={song} loading={loading} />
 
           <ShowAlbum album={album} loading={loading} />
