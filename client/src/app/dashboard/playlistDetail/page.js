@@ -38,11 +38,11 @@ const AlbumDetail = ({}) => {
           <NotFoundMessage error={error} />
         ) : (
           <div className="flex  flex-wrap gap-8 justify-center ">
-            {playlist.map(({ image, name }, idx) => (
+            {playlist.map(({ image, name, id }, idx) => (
               <SongCard
                 key={name + idx}
-                songData={{ name, image }}
-                type="album"
+                songData={{ name, image, id }}
+                type="playlist"
               />
             ))}
           </div>

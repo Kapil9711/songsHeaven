@@ -7,6 +7,7 @@ import {
   albubmSearchAction,
   globalSearchAction,
   playlistSearchAction,
+  setSong,
   songSearchAction,
 } from "@/store/slices/songSlice";
 import { useRouter } from "next/navigation";
@@ -18,7 +19,6 @@ const Songs = () => {
   const album = useSelector((state) => state.songs.album);
   const playlist = useSelector((state) => state.songs.playlist);
   const query = useSelector((state) => state.songs.query);
-
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const dispatch = useDispatch();
@@ -37,8 +37,9 @@ const Songs = () => {
 
   return (
     <div className="pt-5 ">
-      <div className="container mx-auto flex justify-center">
+      <div className="container mx-auto flex justify-center relative">
         <SearchBar />
+        <FavoriteBtn />
       </div>
 
       <div
@@ -54,6 +55,38 @@ const Songs = () => {
         </div>
       </div>
     </div>
+  );
+};
+
+const FavoriteBtn = () => {
+  const favorite = useSelector((state) => state.favorite.value);
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const handleClick = () => {
+    dispatch(setSong({ data: { results: favorite } }));
+    router.push("/dashboard/songDetail?type=favorite");
+  };
+  return (
+    <button
+      onClick={handleClick}
+      className="btn absolute right-4 btn-secondary xl:right-10"
+    >
+      <span className=" xl:inline-block hidden"> Favorites</span>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        className="h-6 w-6"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+        />
+      </svg>
+    </button>
   );
 };
 
@@ -130,10 +163,10 @@ const ShowAlbum = ({ album, loading = "false", error = "" }) => {
           </h1>
         ) : (
           <div className="flex gap-8  min-w-max  ">
-            {album.map(({ image, name }, idx) => (
+            {album.map(({ image, name, id }, idx) => (
               <SongCard
                 key={name + idx}
-                songData={{ name, image }}
+                songData={{ name, image, id }}
                 type="album"
               />
             ))}
@@ -174,11 +207,11 @@ const ShowPlaylist = ({ playlist, loading = "false", error = "" }) => {
           </h1>
         ) : (
           <div className="flex gap-8  min-w-max  ">
-            {playlist.map(({ image, name }, idx) => (
+            {playlist.map(({ image, name, id }, idx) => (
               <SongCard
                 key={name + idx}
-                songData={{ name, image }}
-                type="album"
+                songData={{ name, image, id }}
+                type="playlist"
               />
             ))}
           </div>

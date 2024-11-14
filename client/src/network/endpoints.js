@@ -1,5 +1,5 @@
-// export const baseUrl = "https://songsheaven.onrender.com/api/v1";
-export const baseUrl = "http://localhost:8000/api/v1";
+export const baseUrl = "https://songsheaven.onrender.com/api/v1";
+// export const baseUrl = "http://localhost:8000/api/v1";
 export const jioBaseUrl = "https://saavn.dev";
 // export const socketUrl = "http://localhost:8000";
 export const socketUrl = "https://songsheaven.onrender.com";
@@ -18,6 +18,9 @@ const ENDPOINTS = {
   SONGSEARCH: `${jioBaseUrl}/api/search/songs`,
   ALBUMSEARCH: `${jioBaseUrl}/api/search/albums`,
   PLAYLISTSEARCH: `${jioBaseUrl}/api/search/playlists`,
+
+  ALBUMBYID: `${jioBaseUrl}/api/albums`,
+  PLAYLISTBYID: `${jioBaseUrl}/api/playlists`,
 };
 
 export default ENDPOINTS;

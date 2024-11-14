@@ -17,7 +17,7 @@ const songSlice = createSlice({
   initialState,
   reducers: {
     setSong: (state, action) => {
-      state.song = action.payload.data.results;
+      state.song = action.payload.data.results || action.payload.data.songs;
       if (window.setLoading) window.setLoading(false);
       if (window.setSearchLoading) window.setSearchLoading(false);
     },
@@ -106,6 +106,33 @@ export const playlistSearchAction = (data, params) => {
   };
   return action;
 };
+
+export const playlistByIdAction = (data, params) => {
+  const action = actionFactory();
+  action.payload = {
+    method: "GET",
+    url: ENDPOINTS.PLAYLISTBYID,
+    data,
+    params,
+    showToast: false,
+    onSuccess: setSong.type,
+  };
+  return action;
+};
+
+export const albumByIdAction = (data, params) => {
+  const action = actionFactory();
+  action.payload = {
+    method: "GET",
+    url: ENDPOINTS.ALBUMBYID,
+    data,
+    params,
+    showToast: false,
+    onSuccess: setSong.type,
+  };
+  return action;
+};
+
 // export const SignInAction = (data, params) => {
 //   const action = actionFactory();
 //   action.payload = {

@@ -4,19 +4,29 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { IoMdDownload } from "react-icons/io";
 import { FaHeart } from "react-icons/fa";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { setCurrentList, setCurrentSong } from "@/store/slices/songSlice";
 import startDownload from "@/utils/startDownload";
 import getFormatedTime from "./../../../utils/getFormatedTime";
 import Pagination from "@/components/Pagination";
 import useAddFavorite from "@/cutomHooks/useAddFavorite";
+import { Suspense } from "react";
 
 const SongDetail = () => {
+  return (
+    <Suspense fallback={<h1>Loading...</h1>}>
+      <MyComponent />
+    </Suspense>
+  );
+};
+
+const MyComponent = () => {
   const song = useSelector((state) => state.songs.song);
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const dispatch = useDispatch();
+  const params = useSearchParams();
 
   useEffect(() => {
     setTimeout(() => {
@@ -30,7 +40,7 @@ const SongDetail = () => {
       <div className=" px-4 sm:px-10 md:px-16 lg:px-20 xl:px-24">
         <div className="flex justify-between">
           <GoBackButton />
-          <Pagination setLoading={setLoading} />
+          {!params.get("type") && <Pagination setLoading={setLoading} />}
         </div>
 
         <button className="btn  btn-secondary block mx-auto">Songs</button>

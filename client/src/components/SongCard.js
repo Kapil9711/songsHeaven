@@ -1,5 +1,10 @@
 "use client";
-import { setCurrentList, setCurrentSong } from "@/store/slices/songSlice";
+import {
+  albumByIdAction,
+  playlistByIdAction,
+  setCurrentList,
+  setCurrentSong,
+} from "@/store/slices/songSlice";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FaHeart } from "react-icons/fa";
@@ -7,15 +12,25 @@ import { IoMdDownload } from "react-icons/io";
 import startDownload from "@/utils/startDownload";
 import getFormatedTime from "@/utils/getFormatedTime";
 import useAddFavorite from "@/cutomHooks/useAddFavorite";
+import { useRouter } from "next/navigation";
 
 const SongCard = ({ songData, type = "song" }) => {
   const { name, image = [], downloadUrl = [], duration, id } = songData;
   const song = useSelector((state) => state.songs.song);
   const dispatch = useDispatch();
+  const router = useRouter();
   const handleClick = () => {
     if (type === "song") {
       dispatch(setCurrentSong({ name, image, downloadUrl, duration }));
       dispatch(setCurrentList(song));
+    }
+    if (type === "playlist") {
+      dispatch(playlistByIdAction(null, { id }));
+      router.push("/dashboard/songDetail?type=playlist");
+    }
+    if (type === "album") {
+      dispatch(albumByIdAction(null, { id }));
+      router.push("/dashboard/songDetail?type=album");
     }
   };
   return (
