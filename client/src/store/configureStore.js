@@ -4,6 +4,7 @@ import apiMiddleware from "./middlewares/apiMiddleware.js";
 import toastMiddleware from "./middlewares/toastMiddleware.js";
 import songReducer from "./slices/songSlice.js";
 import favReducer from "./slices/favSlice.js";
+import socketIoClient from "socket.io-client";
 
 const store = configureStore({
   reducer: {

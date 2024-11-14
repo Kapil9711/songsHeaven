@@ -122,8 +122,7 @@ export const LikeButton = ({ songData }) => {
     <>
       <button
         onClick={() => {
-          dispatch(addFavoriteAction({ songInfo: songData }));
-          setTimeout(() => dispatch(getFavoriteAction()), 200);
+          addToFavorite(songData);
         }}
         className="btn"
       >

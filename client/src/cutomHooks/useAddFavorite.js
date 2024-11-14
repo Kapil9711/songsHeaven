@@ -1,22 +1,34 @@
 "use client";
 
-import { useDispatch } from "react-redux";
-import { useState, useEffect } from "react";
-import { addFavoriteAction, getFavoriteAction } from "@/store/slices/favSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { useState, useEffect, useRef } from "react";
+import { setFavorite } from "@/store/slices/favSlice";
+import Cookies from "js-cookie";
 
 const useAddFavorite = () => {
+  const favIdObject = useSelector((state) => state.favorite.favIdObject);
   const [songData, setSongData] = useState(null);
   const dispatch = useDispatch();
-  useEffect(() => {
-    if (songData) {
-      dispatch(addFavoriteAction({ songInfo: songData }));
-      setTimeout(() => {
-        dispatch(getFavoriteAction());
-      }, 200);
-    }
-  }, [songData]);
 
-  return setSongData;
+  useEffect(() => {
+    window.socket.on("favorite-update", (favorites) => {
+      dispatch(setFavorite({ favorites }));
+    });
+  }, []);
+
+  const handleFavorite = (songData) => {
+    if (songData && window.socket) {
+      let userId = JSON.parse(Cookies.get("user") || "").id || "";
+      if (userId) {
+        const { id } = songData;
+        if (favIdObject[id]) {
+          console.log("removing");
+          window.socket.emit("favorite-remove", { userId, songId: id });
+        } else window.socket.emit("favorite-add", { userId, songData });
+      }
+    }
+  };
+  return handleFavorite;
 };
 
 export default useAddFavorite;
