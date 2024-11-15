@@ -90,9 +90,15 @@ export const googleLogin = catchAsyncError(async (req, res, next) => {
   const token = jwt.sign({ userId: req.user._id }, config.JWT_SECRET, {
     expiresIn: config.JWT_EXPIRES_TIME,
   });
+  const user = {
+    name: req.user.name,
+    email: req.user.email,
+    profilePic: req.user.profilePic,
+    id: req.user._id,
+  };
   res.redirect(
     `${config.CLIENT_CALL_BACK_URL}?token=${token}&&user=${JSON.stringify(
-      req.user
+      user
     )}`
   );
 });
