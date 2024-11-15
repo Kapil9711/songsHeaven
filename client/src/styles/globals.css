@@ -25,17 +25,22 @@ body {
 
 .album-container {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 1.5rem;
-  padding: 10px;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1rem;
   overflow-y: scroll;
+  padding: 0.5rem;
   max-height: calc(100vh - 180px);
   margin: 6px;
-  min-width: max-content;
-  @media (max-width: 1024px) {
+  @media (max-width: 1481px) {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  @media (max-width: 1145px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  @media (max-width: 937px) {
     grid-template-columns: repeat(3, 1fr);
   }
-  @media (max-width: 768px) {
+  @media (max-width: 766px) {
     grid-template-columns: repeat(2, 1fr);
   }
   @media (max-width: 480px) {

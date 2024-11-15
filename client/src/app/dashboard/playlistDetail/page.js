@@ -20,7 +20,7 @@ const AlbumDetail = ({}) => {
   }, []);
 
   return (
-    <div className="pt-4">
+    <div className="p-4">
       <div className=" px-4 sm:px-10 md:px-16 lg:px-20 xl:px-24">
         <div className="flex justify-between">
           <GoBackButton />
@@ -31,6 +31,9 @@ const AlbumDetail = ({}) => {
       <div>
         {loading ? (
           <div className="album-container">
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
             <Skeleton />
             <Skeleton />
             <Skeleton />
