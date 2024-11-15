@@ -35,7 +35,6 @@ export const addFavoriteAction = (data, params) => {
     url: ENDPOINTS.ADDTOFAV,
     data,
     onSuccess: setFavorite.type,
-    showToast: false,
   };
   return action;
 };
@@ -59,7 +58,6 @@ export const removeFavoriteAction = (data, params) => {
     url: `${ENDPOINTS.REMOVEFAV}/${params.songId}`,
     data,
     onSuccess: setFavorite.type,
-    showToast: false,
   };
   return action;
 };
