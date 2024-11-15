@@ -1,7 +1,6 @@
 "use client";
 
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
 import {
   addFavoriteAction,
   removeFavoriteAction,
@@ -16,6 +15,7 @@ const useAddFavorite = () => {
     let userId = JSON.parse(Cookies.get("user") || "").id || "";
     if (userId) {
       const { id } = songInfo;
+      console.log("requested");
       if (favIdObject[id]) dispatch(removeFavoriteAction(null, { songId: id }));
       else dispatch(addFavoriteAction({ songInfo }));
     }
