@@ -4,12 +4,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect, useRef } from "react";
 import { setFavorite } from "@/store/slices/favSlice";
 import Cookies from "js-cookie";
+import { socketUrl } from "@/network/endpoints";
+import socketIoClient from "socket.io-client";
 
 const useAddFavorite = () => {
   const favIdObject = useSelector((state) => state.favorite.favIdObject);
   const [songData, setSongData] = useState(null);
   const dispatch = useDispatch();
   useEffect(() => {
+    window.socket = socketIoClient(socketUrl);
     window.socket.on("favorite-update", (favorites) => {
       dispatch(setFavorite({ favorites }));
     });
