@@ -4,8 +4,8 @@ if (process.env.NODE_ENV === "development") {
   socketUrl = "http://localhost:8000";
 }
 if (process.env.NODE_ENV === "production") {
-  baseUrl = "https://songsheaven.onrender.com/api/v1";
-  socketUrl = "https://songsheaven.onrender.com";
+  baseUrl = "https://songs-heaven-server1.vercel.app/api/v1";
+  socketUrl = "https://songs-heaven-server1.vercel.app";
 }
 export { baseUrl, socketUrl };
 
