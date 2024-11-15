@@ -1,8 +1,9 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import { setCurrentSong } from "@/store/slices/songSlice";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 const qualityObj = { HD: 4, High: 3, Medium: 2, Low: 1, "Very Low": 0 };
 const qualityArr = [
   { name: "HD", quality: "320kbps" },
@@ -14,7 +15,22 @@ const qualityArr = [
 const Player = () => {
   const [quality, setQuality] = useState("HD");
   const currentSong = useSelector((state) => state.songs.currentSong);
+  const currentList = useSelector((state) => state.songs.currentList);
+  const dispatch = useDispatch();
+
   const { downloadUrl = [], image = [] } = currentSong;
+  const handleNext = useCallback(() => {
+    const { id } = currentSong;
+    const { list, idObject } = currentList;
+    const nextIndx = idObject[id] === list.length - 1 ? 0 : idObject[id] + 1;
+    dispatch(setCurrentSong(list[nextIndx]));
+  }, [currentList, currentSong]);
+  const handlePrevious = useCallback(() => {
+    const { id } = currentSong;
+    const { list, idObject } = currentList;
+    const prevIndx = idObject[id] === 0 ? list.length - 1 : idObject[id] - 1;
+    dispatch(setCurrentSong(list[prevIndx]));
+  }, [currentList, currentSong]);
 
   return (
     <>
@@ -26,7 +42,12 @@ const Player = () => {
             className="bg-cover rouned-sm w-20 h-20 block"
             src={image[2]?.url}
           />
-          <MemoizedMusicPlayer downloadUrl={downloadUrl} quality={quality} />
+          <MemoizedMusicPlayer
+            handleNext={handleNext}
+            handlePrevious={handlePrevious}
+            downloadUrl={downloadUrl}
+            quality={quality}
+          />
           <div className="w-48 h-20 flex justify-center items-center bg-white">
             <MemoizedDropDown
               setQuality={setQuality}
@@ -80,10 +101,14 @@ const QualityDropDown = ({ setQuality, quality, downloadUrl }) => {
   );
 };
 
-const MusicPlayer = ({ downloadUrl, quality }) => {
+const MusicPlayer = ({ downloadUrl, quality, handleNext, handlePrevious }) => {
   return (
     <AudioPlayer
       className="flex-1"
+      showSkipControls={true}
+      onClickNext={handleNext}
+      onClickPrevious={handlePrevious}
+      onEnded={handleNext}
       autoPlay
       src={downloadUrl[qualityObj[quality]]?.url}
       onPlay={(e) => console.log("onPlay")}

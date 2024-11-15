@@ -96,7 +96,7 @@ const SongDetailCard = ({ songData, idx }) => {
 
   const dispatch = useDispatch();
   const handleClick = () => {
-    dispatch(setCurrentSong({ name, image, downloadUrl, duration }));
+    dispatch(setCurrentSong({ name, image, downloadUrl, duration, id }));
     dispatch(setCurrentList(song));
   };
   return (

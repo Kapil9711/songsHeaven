@@ -8,7 +8,7 @@ const initialState = {
   album: [],
   playlist: [],
   currentSong: {},
-  currentList: [],
+  currentList: {},
   query: "",
 };
 
@@ -35,7 +35,12 @@ const songSlice = createSlice({
       state.currentSong = action.payload;
     },
     setCurrentList: (state, action) => {
-      state.currentList = action.payload;
+      state.currentList.list = action.payload;
+      const obj = {};
+      action.payload.forEach((item, idx) => {
+        if (!obj[item.id]) obj[item.id] = idx;
+      });
+      state.currentList.idObject = obj;
     },
     setQuery: (state, action) => {
       state.query = action.payload;

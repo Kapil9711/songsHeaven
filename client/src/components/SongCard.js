@@ -21,7 +21,7 @@ const SongCard = ({ songData, type = "song" }) => {
   const router = useRouter();
   const handleClick = () => {
     if (type === "song") {
-      dispatch(setCurrentSong({ name, image, downloadUrl, duration }));
+      dispatch(setCurrentSong({ name, image, downloadUrl, duration, id }));
       dispatch(setCurrentList(song));
     }
     if (type === "playlist") {

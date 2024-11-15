@@ -5,7 +5,6 @@ import User from "../models/user.js";
 
 // create new playlist => /api/v1/playlists (post)
 export const createFavorites = catchAsyncError(async (req, res, next) => {
-  console.log("check if user exist", req.user);
   const userId = req.user._id;
   const { songInfo } = req.body;
   const { id, name, duration, image, downloadUrl } = songInfo;
@@ -68,7 +67,7 @@ export const deleteFavortieBySongId = catchAsyncError(
       return next(new CustomError("No song Found to delete", 404));
     const favorites = await Favorite.find({ userId: req.user._id });
     res.status(200).json({
-      message: "Song removed from Favorites Successfully",
+      message: "Favorites Removed Successfully",
       success: true,
       favorites,
     });
