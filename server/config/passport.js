@@ -23,6 +23,7 @@ const callBackFn = async (accessToken, refreshToken, profile, done) => {
         email: profile.emails[0].value,
         profilePic: profile.photos ? profile.photos[0].value : null,
         authMethod: "google",
+        isVerified: true,
       });
     } else {
       user.profilePic = profile.photos ? profile.photos[0].value : null;
