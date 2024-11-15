@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import SongCard from "@/components/SongCard";
 import Skeleton from "@/components/Skeleton";
 import GoBackButton from "@/components/GoBackButton";
+import NotFoundMsg from "@/components/NotFoundMsg";
 
 const AlbumDetail = ({}) => {
   const playlist = useSelector((state) => state.songs.playlist);
@@ -47,7 +48,7 @@ const AlbumDetail = ({}) => {
             <Skeleton />
           </div>
         ) : error ? (
-          <NotFoundMessage error={error} />
+          <NotFoundMsg error={error} />
         ) : (
           <div className="album-container">
             {playlist.map(({ image, name }, idx) => (
@@ -62,10 +63,6 @@ const AlbumDetail = ({}) => {
       </div>
     </div>
   );
-};
-
-const NotFoundMessage = ({ error }) => {
-  return <div>{error}</div>;
 };
 
 export default AlbumDetail;

@@ -26,11 +26,12 @@ body {
 .album-container {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 16px;
+  gap: 1.5rem;
   padding: 10px;
   overflow-y: scroll;
   max-height: calc(100vh - 180px);
   margin: 6px;
+  min-width: max-content;
   @media (max-width: 1024px) {
     grid-template-columns: repeat(3, 1fr);
   }
