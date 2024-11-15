@@ -5,6 +5,7 @@ import actionFactory from "@/utils/actionFactory";
 
 const initialState = {
   song: [],
+  querySong: [],
   album: [],
   playlist: [],
   currentSong: {},
@@ -16,6 +17,9 @@ const songSlice = createSlice({
   name: "song",
   initialState,
   reducers: {
+    setQuerySong: (state, action) => {
+      state.querySong = action.payload.data.results;
+    },
     setSong: (state, action) => {
       state.song = action.payload.data.results || action.payload.data.songs;
       if (window.setLoading) window.setLoading(false);

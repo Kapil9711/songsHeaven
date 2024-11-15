@@ -50,6 +50,7 @@ const MyComponent = () => {
         <div className="flex justify-between">
           <GoBackButton />
           {!params.get("type") && <Pagination setLoading={setLoading} />}
+          {params.get("type") && <DownloadBtn />}
         </div>
 
         <button className="btn  btn-secondary block mx-auto">Songs</button>
@@ -153,6 +154,20 @@ export const LikeButton = ({ songData }) => {
         />
       </button>
     </>
+  );
+};
+
+const DownloadBtn = () => {
+  const songList = useSelector((state) => state.songs.song);
+  const handleDownloadAll = async () => {
+    songList.forEach((item) => {
+      startDownload(item.downloadUrl[4].url, item.name);
+    });
+  };
+  return (
+    <button onClick={handleDownloadAll} className="btn btn-accent btn-sm">
+      <IoMdDownload /> All
+    </button>
   );
 };
 
