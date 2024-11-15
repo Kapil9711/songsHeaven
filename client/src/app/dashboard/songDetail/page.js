@@ -5,7 +5,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { IoMdDownload } from "react-icons/io";
 import { FaHeart } from "react-icons/fa";
 import { useRouter, useSearchParams } from "next/navigation";
-import { setCurrentList, setCurrentSong } from "@/store/slices/songSlice";
+import {
+  setCurrentList,
+  setCurrentSong,
+  setSong,
+} from "@/store/slices/songSlice";
 import startDownload from "@/utils/startDownload";
 import getFormatedTime from "./../../../utils/getFormatedTime";
 import Pagination from "@/components/Pagination";
@@ -22,6 +26,7 @@ const SongDetail = () => {
 
 const MyComponent = () => {
   const song = useSelector((state) => state.songs.song);
+  const favorite = useSelector((state) => state.favorite.value);
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -34,6 +39,10 @@ const MyComponent = () => {
       if (song.length === 0) setError("Songs Not Found");
     }, 1000);
   }, []);
+  useEffect(() => {
+    if (params.get("type") === "favorite")
+      dispatch(setSong({ data: { results: favorite } }));
+  }, [favorite]);
 
   return (
     <div className="pt-4 ">
@@ -84,6 +93,7 @@ const MyComponent = () => {
 const SongDetailCard = ({ songData, idx }) => {
   const { name, image = [], downloadUrl = [], duration, id } = songData;
   const song = useSelector((state) => state.songs.song);
+
   const dispatch = useDispatch();
   const handleClick = () => {
     dispatch(setCurrentSong({ name, image, downloadUrl, duration }));
