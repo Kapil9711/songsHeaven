@@ -2,6 +2,7 @@
 import SearchBar from "@/components/SearchBar";
 import Skeleton from "@/components/Skeleton";
 import SongCard from "@/components/SongCard";
+import { socketUrl } from "@/network/endpoints";
 import { getFavoriteAction } from "@/store/slices/favSlice";
 import {
   albubmSearchAction,
@@ -13,6 +14,7 @@ import {
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import socketIoClient from "socket.io-client";
 
 const Songs = () => {
   const song = useSelector((state) => state.songs.song);
@@ -24,6 +26,8 @@ const Songs = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    const socket = socketIoClient(socketUrl);
+    if (socket) window.socket = socket;
     window.setSearchLoading = setLoading;
     const params = { query: query || "arjit singh", limit: 20, page: 1 };
     dispatch(getFavoriteAction());
@@ -63,7 +67,7 @@ const FavoriteBtn = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const handleClick = () => {
-    dispatch(setSong({ data: { results: favorite } }));
+    setTimeout(() => dispatch(setSong({ data: { results: favorite } })), 600);
     router.push("/dashboard/songDetail?type=favorite");
   };
   return (
