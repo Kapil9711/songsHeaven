@@ -20,6 +20,7 @@ const ENDPOINTS = {
 
   ADDTOFAV: `${baseUrl}/favorites`,
   GETFAV: `${baseUrl}/favorites`,
+  REMOVEFAV: `${baseUrl}/favorites`,
 
   GLOBALSEARCH: `${jioBaseUrl}/api/search`,
   SONGSEARCH: `${jioBaseUrl}/api/search/songs`,

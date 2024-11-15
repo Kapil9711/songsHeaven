@@ -34,6 +34,8 @@ export const addFavoriteAction = (data, params) => {
     method: "POST",
     url: ENDPOINTS.ADDTOFAV,
     data,
+    onSuccess: setFavorite.type,
+    showToast: false,
   };
   return action;
 };
@@ -43,6 +45,18 @@ export const getFavoriteAction = (data, params) => {
   action.payload = {
     method: "GET",
     url: ENDPOINTS.GETFAV,
+    data,
+    onSuccess: setFavorite.type,
+    showToast: false,
+  };
+  return action;
+};
+
+export const removeFavoriteAction = (data, params) => {
+  const action = actionFactory();
+  action.payload = {
+    method: "DELETE",
+    url: `${ENDPOINTS.REMOVEFAV}/${params.songId}`,
     data,
     onSuccess: setFavorite.type,
     showToast: false,

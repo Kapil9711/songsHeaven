@@ -19,10 +19,11 @@ export const createFavorites = catchAsyncError(async (req, res, next) => {
     downloadUrl,
   });
   if (!favorite) return next(new CustomError("Internal server Error", 500));
+  const favorites = await Favorite.find({ userId });
   res.status(201).json({
     message: "Favorite Added Successfully",
     success: true,
-    favorite,
+    favorites,
   });
 });
 
@@ -64,9 +65,11 @@ export const deleteFavortieBySongId = catchAsyncError(
     });
     if (!isDeleted)
       return next(new CustomError("No song Found to delete", 404));
+    const favorites = await Favorite.find({ userId: req.user._id });
     res.status(200).json({
       message: "Song removed from Favorites Successfully",
       success: true,
+      favorites,
     });
   }
 );
