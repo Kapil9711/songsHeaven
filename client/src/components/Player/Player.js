@@ -102,6 +102,10 @@ const QualityDropDown = ({ setQuality, quality, downloadUrl }) => {
 };
 
 const MusicPlayer = ({ downloadUrl, quality, handleNext, handlePrevious }) => {
+let fileUrl =  downloadUrl[qualityObj[quality]]?.url;
+  if (fileUrl?.startsWith('http://')) {
+  fileUrl = fileUrl.replace('http://', 'https://');
+}
   return (
     <AudioPlayer
       className="flex-1"
