@@ -1,6 +1,10 @@
 import notify from "./notify";
 const startDownload = (fileLink, fileName) => {
   // Fetch the file as a Blob
+  if (fileLink?.startsWith('http://')) {
+  fileLink = fileLink.replace('http://', 'https://');
+}
+  
   const [res, rej] = notify();
   fetch(fileLink)
     .then((response) => response.blob())
