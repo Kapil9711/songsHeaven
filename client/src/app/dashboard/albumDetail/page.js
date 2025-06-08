@@ -32,14 +32,14 @@ const AlbumDetail = ({}) => {
       {/* album details  */}
       <div
         style={{ height: "calc(100vh - 120px)" }}
-        className="mt-4 pb-28 px-2 md:px-4 lg:px-5 xl:px-10 overflow-scroll "
+        className="mt-4 md:pb-28 pb-[250px] px-2 md:px-4 lg:px-5 xl:px-10 overflow-scroll "
       >
         {loading ? (
           <ShowSkeleton />
         ) : error ? (
           <NotFoundMessage error={error} />
         ) : (
-          <div className=" flex  flex-wrap gap-5  md:gap-8 justify-center  ">
+          <div className="  md:pb-0 flex  flex-wrap gap-8 justify-center  ">
             {album.map(({ image, name, id }, idx) => (
               <SongCard
                 key={name + idx}

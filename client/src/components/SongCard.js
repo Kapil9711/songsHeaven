@@ -36,7 +36,7 @@ const SongCard = ({ songData, type = "song" }) => {
   return (
     <div
       onClick={handleClick}
-      className="flex items-end overflow-hidden bg-cover rounded-lg h-24 w-24 md:h-28 md:w-32 lg:h-32 lg:w-36 xl:h-40 xl:w-44 shadow-lg cursor-pointer"
+      className="flex items-end overflow-hidden bg-cover rounded-lg h-28 w-28  md:h-28 md:w-32 lg:h-32 lg:w-36 xl:h-40 xl:w-44 shadow-lg cursor-pointer"
       style={{
         backgroundImage: `url(${image[2]?.url})`,
       }}
@@ -52,7 +52,10 @@ const SongCard = ({ songData, type = "song" }) => {
         </h2>
 
         {type === "song" && (
-          <div onClick={(e) => e.stopPropagation()} className="flex gap-1">
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="md:flex hidden gap-1"
+          >
             <FavButton songData={songData} />
             <button
               onClick={() => startDownload(downloadUrl[4].url, name)}

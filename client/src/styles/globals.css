@@ -41,3 +41,9 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+.my-class {
+  @media (min-width: 768px) {
+    max-width: calc(100vw - 288px);
+  }
+}

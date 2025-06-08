@@ -8,7 +8,7 @@ const DashboardLayout = ({ children }) => {
         <DashboardSideBar />
       </div>
       <div
-        className="flex-1 relative max-w-[100vw] ms:max-w-[calc(100vw - 288px)]"
+        className="flex-1 relative max-w-[100vw] md:max-w-[calc(100vw - 288px)] my-class"
         // style={{ maxWidth: "calc(100vw - 288px)" }}
       >
         <PrivateRoute>{children}</PrivateRoute>

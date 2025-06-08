@@ -37,14 +37,14 @@ const Songs = () => {
 
   return (
     <div className="pt-5 ">
-      <div className="container mx-auto flex pl-3 ms:pl-0  ms:justify-center relative">
+      <div className="container mx-auto flex justify-center relative">
         <SearchBar />
         <FavoriteBtn />
       </div>
 
       <div
-        style={{ maxHeight: "calc(100vh - 80px)" }}
-        className="overflow-y-scroll mt-1"
+        // style={{ maxHeight: "calc(100vh - 80px)" }}
+        className="overflow-y-scroll mt-1 h-[100vh] pb-[80px]"
       >
         <div className="mt-1 pb-24 px-1 md:px-2  lg:px-5 xl:px-8">
           <ShowSongs song={song} loading={loading} />
@@ -98,13 +98,13 @@ const ShowSongs = ({ song, loading = "false", error = "" }) => {
           onClick={() => router.push("/dashboard/songDetail")}
           className="absolute text-sm text-muted top-2 right-10"
         >
-          <a className="link link-neutral">see more</a>
+          <a className="underline select-none">see more</a>
         </span>
       </h2>
 
       <div className="overflow-scroll scroll-smooth">
         {loading ? (
-          <div className="flex gap-8  min-w-max  ">
+          <div className="flex gap-4 md:gap-8  min-w-max  ">
             <Skeleton />
             <Skeleton />
             <Skeleton />
@@ -141,7 +141,7 @@ const ShowAlbum = ({ album, loading = "false", error = "" }) => {
           onClick={() => router.push("/dashboard/albumDetail")}
           className="absolute text-sm text-muted top-2 right-10"
         >
-          <a className="link link-neutral">see more</a>
+          <a className="underline select-none">see more</a>
         </span>
       </h2>
 
@@ -185,7 +185,7 @@ const ShowPlaylist = ({ playlist, loading = "false", error = "" }) => {
           onClick={() => router.push("/dashboard/playlistDetail")}
           className="absolute text-sm text-muted top-2 right-10"
         >
-          <a className="link link-neutral">see more</a>
+          <a className="underline select-none">see more</a>
         </span>
       </h2>
 

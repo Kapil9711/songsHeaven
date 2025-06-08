@@ -37,9 +37,9 @@ const Player = () => {
       {Object.keys(currentSong).length === 0 ? (
         <h1></h1>
       ) : (
-        <div className="flex w-full">
+        <div className=" w-full flex">
           <img
-            className="bg-cover rouned-sm w-20 h-20 block"
+            className="bg-cover rouned-sm w-20 h-20 hidden md:block"
             src={image[2]?.url}
           />
           <MemoizedMusicPlayer
@@ -109,7 +109,7 @@ const MusicPlayer = ({ downloadUrl, quality, handleNext, handlePrevious }) => {
   return (
     <AudioPlayer
       className="flex-1"
-      showSkipControls={window.innerWidth > 768 ? true : false}
+      showSkipControls={true}
       onClickNext={handleNext}
       onClickPrevious={handlePrevious}
       onEnded={handleNext}

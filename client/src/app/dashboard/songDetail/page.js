@@ -78,7 +78,7 @@ const MyComponent = () => {
         ) : error ? (
           <NotFoundMessage error={error} />
         ) : (
-          <div className="py-2 px-2 md:px-4 lg:px-5 xl:px-8 flex flex-col gap-5 mt-4">
+          <div className="pb-[100px]   md:py-2 px-2 md:px-4 lg:px-5 xl:px-8 flex flex-col gap-5 mt-4">
             {song.map(({ name, image, downloadUrl, duration, id }, idx) => (
               <SongDetailCard
                 key={id + idx}
