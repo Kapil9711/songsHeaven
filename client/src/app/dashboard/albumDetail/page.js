@@ -25,7 +25,9 @@ const AlbumDetail = ({}) => {
         <div className="flex justify-between">
           <GoBackButton />
         </div>
-        <button className="btn btn-secondary block mx-auto">Album</button>
+        <button className="btn btn-secondary mt-2 md:mt-0 block mx-auto">
+          Album
+        </button>
       </div>
       {/* album details  */}
       <div
@@ -37,7 +39,7 @@ const AlbumDetail = ({}) => {
         ) : error ? (
           <NotFoundMessage error={error} />
         ) : (
-          <div className=" flex  flex-wrap gap-8 justify-center  ">
+          <div className=" flex  flex-wrap gap-5  md:gap-8 justify-center  ">
             {album.map(({ image, name, id }, idx) => (
               <SongCard
                 key={name + idx}

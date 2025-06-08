@@ -53,7 +53,9 @@ const MyComponent = () => {
           {params.get("type") && <DownloadBtn />}
         </div>
 
-        <button className="btn  btn-secondary block mx-auto">Songs</button>
+        <button className="btn mt-3 md:mt-0  btn-secondary block mx-auto">
+          Songs
+        </button>
       </div>
       {/* songsDetails */}
       <div
@@ -114,7 +116,9 @@ const SongDetailCard = ({ songData, idx }) => {
           <span className="text-lg text-bold mr-4">{idx + 1}</span>
         </p>
         <div>
-          <p>{name?.slice(0, 30)}</p>
+          <p>
+            {window?.innerWidth > 768 ? name?.slice(0, 30) : name?.slice(0, 12)}
+          </p>
           <p className="text-xs">{getFormatedTime(Number(duration))}</p>
         </div>
       </div>
