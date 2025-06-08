@@ -7,6 +7,10 @@ if (process.env.NODE_ENV === "production") {
   baseUrl = "https://songs-heaven-server1.vercel.app/api/v1";
   socketUrl = "https://songs-heaven-server1.vercel.app";
 }
+
+baseUrl = "https://songs-heaven-server1.vercel.app/api/v1";
+socketUrl = "https://songs-heaven-server1.vercel.app";
+
 export { baseUrl, socketUrl };
 
 export const jioBaseUrl = "https://saavn.dev";

@@ -48,7 +48,7 @@ const Player = () => {
             downloadUrl={downloadUrl}
             quality={quality}
           />
-          <div className="w-48 h-20 flex justify-center items-center bg-white">
+          <div className="w-48 h-20  hidden md:flex justify-center items-center bg-white">
             <MemoizedDropDown
               setQuality={setQuality}
               quality={quality}
@@ -102,14 +102,14 @@ const QualityDropDown = ({ setQuality, quality, downloadUrl }) => {
 };
 
 const MusicPlayer = ({ downloadUrl, quality, handleNext, handlePrevious }) => {
-let fileUrl =  downloadUrl[qualityObj[quality]]?.url;
-  if (fileUrl?.startsWith('http://')) {
-  fileUrl = fileUrl.replace('http://', 'https://');
-}
+  let fileUrl = downloadUrl[qualityObj[quality]]?.url;
+  if (fileUrl?.startsWith("http://")) {
+    fileUrl = fileUrl.replace("http://", "https://");
+  }
   return (
     <AudioPlayer
       className="flex-1"
-      showSkipControls={true}
+      showSkipControls={window.innerWidth > 768 ? true : false}
       onClickNext={handleNext}
       onClickPrevious={handlePrevious}
       onEnded={handleNext}

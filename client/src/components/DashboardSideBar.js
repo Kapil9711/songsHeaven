@@ -9,7 +9,7 @@ const DashboardSideBar = () => {
     if (Cookies.get("user")) setUser(JSON.parse(Cookies.get("user")));
   }, []);
   return (
-    <aside className="flex bg-stone-200     text-white flex-col w-72 h-screen px-4 py-8 overflow-y-auto  border-r rtl:border-r-0 rtl:border-l dark:bg-gray-900 dark:border-gray-700">
+    <aside className=" bg-stone-200     text-white flex-col w-72 h-screen px-4 py-8 overflow-y-auto  border-r rtl:border-r-0 rtl:border-l dark:bg-gray-900 dark:border-gray-700  hidden xl:flex">
       <a href="#" className="mx-auto">
         <p className="text-2xl text-black">SongsHeaven</p>
       </a>

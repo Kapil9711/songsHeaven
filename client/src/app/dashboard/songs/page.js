@@ -37,7 +37,7 @@ const Songs = () => {
 
   return (
     <div className="pt-5 ">
-      <div className="container mx-auto flex justify-center relative">
+      <div className="container mx-auto flex pl-3 ms:pl-0  ms:justify-center relative">
         <SearchBar />
         <FavoriteBtn />
       </div>
@@ -48,9 +48,7 @@ const Songs = () => {
       >
         <div className="mt-1 pb-24 px-1 md:px-2  lg:px-5 xl:px-8">
           <ShowSongs song={song} loading={loading} />
-
           <ShowAlbum album={album} loading={loading} />
-
           <ShowPlaylist playlist={playlist} loading={loading} />
         </div>
       </div>
@@ -119,7 +117,7 @@ const ShowSongs = ({ song, loading = "false", error = "" }) => {
             Song Not Found
           </h1>
         ) : (
-          <div className="flex gap-8  min-w-max  ">
+          <div className="flex gap-4 md:gap-8  min-w-max  ">
             {song.map(({ image, name, downloadUrl, duration, id }, idx) => (
               <SongCard
                 key={name + idx}
@@ -149,7 +147,7 @@ const ShowAlbum = ({ album, loading = "false", error = "" }) => {
 
       <div className="overflow-scroll scroll-smooth">
         {loading ? (
-          <div className="flex gap-8  min-w-max  ">
+          <div className="flex gap-4 md:gap-8  min-w-max  ">
             <Skeleton />
             <Skeleton />
             <Skeleton />
@@ -162,7 +160,7 @@ const ShowAlbum = ({ album, loading = "false", error = "" }) => {
             Album Not Found
           </h1>
         ) : (
-          <div className="flex gap-8  min-w-max  ">
+          <div className="flex gap-4 md:gap-8 min-w-max  ">
             {album.map(({ image, name, id }, idx) => (
               <SongCard
                 key={name + idx}
@@ -193,7 +191,7 @@ const ShowPlaylist = ({ playlist, loading = "false", error = "" }) => {
 
       <div className="overflow-scroll scroll-smooth">
         {loading ? (
-          <div className="flex gap-8  min-w-max  ">
+          <div className="flex gap-4 md:gap-8  min-w-max  ">
             <Skeleton />
             <Skeleton />
             <Skeleton />
@@ -206,7 +204,7 @@ const ShowPlaylist = ({ playlist, loading = "false", error = "" }) => {
             Playlist Not Found
           </h1>
         ) : (
-          <div className="flex gap-8  min-w-max  ">
+          <div className="flex gap-4 md:gap-8  min-w-max  ">
             {playlist.map(({ image, name, id }, idx) => (
               <SongCard
                 key={name + idx}
